@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "295780586025",
+    "project_id": "school-bus-caddc",
+    "storage_bucket": "school-bus-caddc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:295780586025:android:561b06b3dd18e2136e8238",
+        "android_client_info": {
+          "package_name": "com.schoolbusbd.bus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "295780586025-oik085fkn1tvd9p52suqducvr91b97j3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpneIeEeAHZuNLGu4LLz3LYsZ_vGa08D4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "295780586025-oik085fkn1tvd9p52suqducvr91b97j3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
