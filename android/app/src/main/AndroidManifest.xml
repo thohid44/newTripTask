@@ -8,7 +8,7 @@ xmlns:tools="http://schemas.android.com/tools"
        <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" tools:node="remove"/>
 
    <application
-        android:label="School Bus"
+        android:label="TripShipTask"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

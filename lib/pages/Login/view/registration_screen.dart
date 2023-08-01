@@ -1,5 +1,6 @@
 import 'package:bus/Utils/colors.dart';
 import 'package:bus/Widget/customButtonOne.dart';
+import 'package:bus/Widget/custom_text_field.dart';
 import 'package:bus/pages/Login/view/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -30,7 +31,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     ];
     return genderList;
   }
-
+ final formkey = GlobalKey<FormState>();
   String gender = "Gender"; 
   @override
   Widget build(BuildContext context) {
@@ -45,144 +46,156 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           Icon(Icons.filter),
         ],
       ),
-      body: ListView(
-        children: [
-          SizedBox(
-            height: 5.h,
-          ),
-          Container(
-            height: 110.h,
-            child: Image.asset("assets/logo.jpg"),
-          ),
-          SizedBox(
-            height: 20.h,
-          ),
-          _textInputForm(
-            controller: name,
-            hint: "Full Name",
-            userErrorText: "Full Name is Required",
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          _textInputForm(
-            controller: phone,
-            hint: "Phone Number",
-            userErrorText: "Phone Number is Required",
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          _textInputForm(
-            controller: email,
-            hint: "Email",
-            userErrorText: "Email is Required",
-          ),
-          SizedBox(height: 10.h,), 
-          Container(
-            height: 45.h, 
-            padding: EdgeInsets.only(left: 10.w),
-             margin: EdgeInsets.symmetric(horizontal: 20.w),
-            decoration: BoxDecoration(
-              
-              border: Border.all(width: 1.w, color: Colors.grey) , 
-              borderRadius: BorderRadius.circular(10.r)
-
-            ),
-
-            child: DropdownButton(
-              underline: SizedBox(),
-              value: gender,
-                 onChanged:(value){
-                  setState(() {
-                    gender = value.toString(); 
-                  });
-                 },
-              items: dropdownItem,
-          ),
-          ), 
+      body: Form( 
+        key: formkey,
+        child: ListView(
+          children: [
+            SizedBox(height: 10.h,) , 
           
-          SizedBox(
-            height: 10.h,
-          ),
-          _textInputForm(
-            controller: name,
-            hint: "Password",
-            userErrorText: "Password is Required",
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          _textInputForm(
-            controller: name,
-            hint: "Retype Password",
-            userErrorText: "Retype Password is Required",
-          ),
-          SizedBox(
-            height: 20.h,
-          ),
-          CustomButtonOne(
-            title: "SignUp",
-            btnColor: navyBlueColor,
-            radius: 10.r,
-            onTab: () {},
-          ),
-          SizedBox(
-            height: 20.h,
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 30.w),
-            alignment: Alignment.center,
-            child: Text(
-              "By signing up, you agree to our Terms, Privacy, Data, Cookies,Acceptable Use and Copyright Policy",
-              style: TextStyle(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w500,
-                  color: navyBlueColor),
-              textAlign: TextAlign.center,
+            SizedBox(
+              height: 5.h,
             ),
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                alignment: Alignment.center,
-                child: Text(
-                  "Have an Account?",
-                  style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                      color: navyBlueColor),
-                  textAlign: TextAlign.center,
-                ),
+            Container(
+              height: 110.h,
+              child: Image.asset("assets/logo.jpg"),
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+            _textInputForm(
+              controller: name,
+              hint: "Full Name",
+              userErrorText: "Full Name is Required",
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            _textInputForm(
+              controller: phone,
+              hint: "Phone Number",
+              userErrorText: "Phone Number is Required",
+            ),
+             
+          
+            SizedBox(
+              height: 10.h,
+            ),
+            _textInputForm(
+              controller: email,
+              hint: "Email",
+              userErrorText: "Email is Required",
+            ),
+            SizedBox(height: 10.h,), 
+            Container(
+              height: 45.h, 
+              padding: EdgeInsets.only(left: 10.w),
+               margin: EdgeInsets.symmetric(horizontal: 20.w),
+              decoration: BoxDecoration(
+                
+                border: Border.all(width: 1.w, color: Colors.grey) , 
+                borderRadius: BorderRadius.circular(10.r)
+      
               ),
-              SizedBox(
-                width: 10.h,
+      
+              child: DropdownButton(
+                isExpanded: true,
+                underline: SizedBox(),
+                value: gender,
+                   onChanged:(value){
+                    setState(() {
+                      gender = value.toString(); 
+                    });
+                   },
+                items: dropdownItem,
+            ),
+            ), 
+            
+            SizedBox(
+              height: 10.h,
+            ),
+            _textInputForm(
+              controller: name,
+              hint: "Password",
+              userErrorText: "Password is Required",
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            _textInputForm(
+              controller: name,
+              hint: "Retype Password",
+              userErrorText: "Retype Password is Required",
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+            CustomButtonOne(
+              title: "SignUp",
+              btnColor: navyBlueColor,
+              radius: 10.r,
+              onTab: () {
+                if(formkey.currentState!.validate()){
+                  print("object");
+                }
+              },
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 30.w),
+              alignment: Alignment.center,
+              child: Text(
+                "By signing up, you agree to our Terms, Privacy, Data, Cookies,Acceptable Use and Copyright Policy",
+                style: TextStyle(
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w500,
+                    color: navyBlueColor),
+                textAlign: TextAlign.center,
               ),
-              InkWell(
-                onTap: () {
-                  Get.to(
-                    LoginScreen(),
-                  );
-                },
-                child: Container(
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
                   alignment: Alignment.center,
                   child: Text(
-                    "Login",
+                    "Have an Account?",
                     style: TextStyle(
-                        fontSize: 15.sp,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
                         color: navyBlueColor),
                     textAlign: TextAlign.center,
                   ),
                 ),
-              ),
-            ],
-          ),
-        ],
+                SizedBox(
+                  width: 10.h,
+                ),
+                InkWell(
+                  onTap: () {
+                    Get.to(
+                      LoginScreen(),
+                    );
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Login",
+                      style: TextStyle(
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w500,
+                          color: navyBlueColor),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     ));
   }
@@ -190,7 +203,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
 Widget _textInputForm({controller, hint, icon, inputAction, userErrorText}) {
   return Container(
-    height: 45.h,
+   
     margin: EdgeInsets.symmetric(horizontal: 20.w),
     decoration: BoxDecoration(
         color: Colors.white,
@@ -204,6 +217,7 @@ Widget _textInputForm({controller, hint, icon, inputAction, userErrorText}) {
           return null;
         }
       },
+      
       controller: controller,
       decoration: InputDecoration(
         hintText: hint,
@@ -213,6 +227,19 @@ Widget _textInputForm({controller, hint, icon, inputAction, userErrorText}) {
           borderRadius: BorderRadius.circular(10.r),
           gapPadding: 4.6,
         ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.r),
+                borderSide: BorderSide(color:Colors.lightBlue),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color:Colors.blue),
+          
+              ),
+                errorBorder:OutlineInputBorder(
+                  borderRadius:   BorderRadius.circular(10.r),
+                ),
+                  contentPadding:
+                   EdgeInsets.symmetric(vertical: 14.h, horizontal: 16.w)
       ),
     ),
   );
