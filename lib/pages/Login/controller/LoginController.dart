@@ -32,4 +32,25 @@ class LoginController extends GetxController {
       print("Error $e");
     }
   }
+    registration({name,phone, email,gender, password}) async {
+    var mapData = {
+      "name":name, "mobile":phone, 
+      "email": email, "gender":gender,  "password": password};
+    try {
+      isLoading(true);
+      var response = await http.post(Uri.parse(url), body: mapData);
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(response.body);
+
+        var getToken = jsonData['access_token'];
+        _box.write(LocalStoreKey.token, getToken);
+        print(_box.read(LocalStoreKey.token));
+        if (getToken != null) {
+    
+        }
+      }
+    } catch (e) {
+      print("Error $e");
+    }
+  }
 }

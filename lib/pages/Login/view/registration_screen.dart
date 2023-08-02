@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:bus/Utils/colors.dart';
 import 'package:bus/Widget/customButtonOne.dart';
 import 'package:bus/Widget/custom_text_field.dart';
+import 'package:bus/pages/Login/controller/LoginController.dart';
 import 'package:bus/pages/Login/view/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -135,7 +138,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               radius: 10.r,
               onTab: () {
                 if(formkey.currentState!.validate()){
-                  print("object");
+                 var logInController = Get.put(LoginController()); 
+                 logInController.registration(name:name, phone:phone, email :email, gender: gender, password:password);
                 }
               },
             ),
