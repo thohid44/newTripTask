@@ -10,8 +10,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:bus/Utils/colors.dart';
 
-
-
 class TripPage extends StatefulWidget {
   TripPage({super.key});
 
@@ -21,7 +19,8 @@ class TripPage extends StatefulWidget {
 
 class _TripPageState extends State<TripPage> {
   final TextEditingController search = TextEditingController();
-
+  bool btn1Status = false;
+   bool btn2Status = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,6 +111,8 @@ class _TripPageState extends State<TripPage> {
                 onTap: () {
                   setState(() {
                     index = 0;
+                    btn1Status = true;
+                    btn2Status = false; 
                   });
                 },
                 child: Container(
@@ -119,7 +120,8 @@ class _TripPageState extends State<TripPage> {
                   width: 160.w,
                   height: 30.h,
                   decoration: BoxDecoration(
-                      color: Color(0xff4CA4C7),
+                      color:
+                          btn1Status == true ? Color(0xff4CA4C7) : Colors.grey,
                       //E6E7E8
                       borderRadius: BorderRadius.circular(10.r)),
                   child: Text(
@@ -136,6 +138,8 @@ class _TripPageState extends State<TripPage> {
                 onTap: () {
                   setState(() {
                     index = 1;
+                        btn1Status = false;
+                    btn2Status = true ; 
                   });
                 },
                 child: Container(
@@ -143,7 +147,7 @@ class _TripPageState extends State<TripPage> {
                   width: 160.w,
                   height: 30.h,
                   decoration: BoxDecoration(
-                      color: Color(0xff4CA4C7),
+                      color:  btn2Status == true ? Color(0xff4CA4C7) : Colors.grey,
                       borderRadius: BorderRadius.circular(10.r)),
                   child: Text(
                     "Get a Ride",
@@ -354,7 +358,8 @@ class TripTaskPost extends StatelessWidget {
                       );
                     });
               }
-              return const Center(child: CircularProgressIndicator(
+              return const Center(
+                  child: CircularProgressIndicator(
                 color: navyBlueColor,
               ));
             }));
@@ -364,7 +369,7 @@ class TripTaskPost extends StatelessWidget {
 AppBar customAppBar() {
   return AppBar(
     elevation: 0,
-    title:const Text(
+    title: const Text(
       "Trip Ship Task",
       style: TextStyle(color: Colors.black),
     ),
