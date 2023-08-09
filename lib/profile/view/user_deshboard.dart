@@ -106,6 +106,78 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                           ),
                         )
                       ],
+                    ),
+                      ExpansionTile(
+                      expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
+                      title: Text(
+                        "Ship",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black,
+                            fontSize: 15.sp),
+                      ),
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(left: 40.w),
+                          //   height: 40.h,
+                          padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
+
+                          child: Text(
+                            "Post a Trip",
+                            style: TextStyle(
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Get.to(MainProfilePage());
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(left: 40.w),
+                            padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
+                            //      height: 40.h,
+                            child: Text(
+                              "My Trips",
+                              style: TextStyle(
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black),
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(MyTripsOfferPage()); 
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(left: 40.w),
+                            //   height: 40.h,
+                            padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
+
+                            child: Text(
+                              "My Trip offers",
+                              style: TextStyle(
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 40.w),
+                          padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
+                          //      height: 40.h,
+                          child: Text(
+                            "My Trip Ratings ",
+                            style: TextStyle(
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black),
+                          ),
+                        )
+                      ],
                     )
                   ],
                 ),

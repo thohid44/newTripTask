@@ -18,6 +18,7 @@ class MyTripsOfferPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var controller = Get.put(TripController());
     return Scaffold(
+      appBar:customAppBar(),
       body: FutureBuilder(
           future: controller.getMyTripsOffer(),
           builder: (context, AsyncSnapshot snapshot) {
@@ -40,12 +41,37 @@ class MyTripsOfferPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    child: CustomText(
-                                        "Start Point:${tripOfferData.tripStartPoint}",
-                                        Colors.black,
-                                        FontWeight.normal,
-                                        13.sp),
-                                  ),
+                                    child: RichText(text:TextSpan(
+                                    text: "Start Point: ",
+                                    style: TextStyle(color:Colors.black, fontWeight: FontWeight.bold),
+                                    children: [
+                                      TextSpan(
+                                        text: "${tripOfferData.tripStartPoint}" , 
+                                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500)
+                                      )
+                                    ]
+                                  ), 
+                                  
+                                  ),),
+                                  SizedBox(height: 10.h,), 
+                                  Container(
+                                    child: RichText(text:TextSpan(
+                                    text: "Destination Point: ",
+                                    style: TextStyle(color:Colors.black, fontWeight: FontWeight.bold),
+                                    children: [
+                                      TextSpan(
+                                        text: "${tripOfferData.tripDestination}" , 
+                                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500)
+                                      )
+                                    ]
+                                  ), 
+                                  
+                                  ),),
+                                    
+                                  
+
+                                  
+
                                 ],
                               ),
                             ),
@@ -55,15 +81,50 @@ class MyTripsOfferPage extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
+                                   Container(
+                                  
+                                    child:  RichText(text:TextSpan(
+                                    text: "Date: ",
+                                    style: TextStyle(color:Colors.black, fontWeight: FontWeight.bold),
+                                    children: [
+                                      TextSpan(
+                                        text: "${tripOfferData.tripDate}" , 
+                                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600)
+                                      )
+                                    ]
+                                  ), 
+                                  
+                                  ),),
+                                    
                                   Container(
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 10.h),
-                                    child: CustomText(
-                                        "Amount {tripData.amount}",
-                                        Colors.black,
-                                        FontWeight.normal,
-                                        13.sp),
-                                  ),
+                                   
+                                    child:  RichText(text:TextSpan(
+                                    text: "Amount: ",
+                                    style: TextStyle(color:Colors.black, fontWeight: FontWeight.bold),
+                                    children: [
+                                      TextSpan(
+                                        text: "${tripOfferData.amount}" , 
+                                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600)
+                                      )
+                                    ]
+                                  ), 
+                                  
+                                  ),),
+                                       Container(
+                               
+                                    child:  RichText(text:TextSpan(
+                                    text: "Accepted: ",
+                                    style: TextStyle(color:Colors.black, fontWeight: FontWeight.bold),
+                                    children: [
+                                      TextSpan(
+                                        text: "${tripOfferData.accepted}" , 
+                                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600)
+                                      )
+                                    ]
+                                  ), 
+                                  
+                                  ),),
+                                  
                                 ],
                               ),
                             )

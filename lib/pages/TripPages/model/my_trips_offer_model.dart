@@ -7,11 +7,12 @@ import 'dart:convert';
 MyTripsOfferModel myTripsOfferModelFromJson(String str) => MyTripsOfferModel.fromJson(json.decode(str));
 
 
+
 class MyTripsOfferModel {
-    List<Datum> data;
+    List<Datum>? data;
 
     MyTripsOfferModel({
-        required this.data,
+        this.data,
     });
 
     factory MyTripsOfferModel.fromJson(Map<String, dynamic> json) => MyTripsOfferModel(
@@ -21,26 +22,26 @@ class MyTripsOfferModel {
 }
 
 class Datum {
-    String tripId;
-    DateTime tripDate;
-    String tripStartPoint;
-    String tripDestination;
-    int userId;
-    int amount;
+    String? tripId;
+    var tripDate;
+    String? tripStartPoint;
+    String? tripDestination;
+    int? userId;
+    int? amount;
     dynamic co;
-    int accepted;
-    String path;
+    int? accepted;
+    String? path;
 
     Datum({
-        required this.tripId,
-        required this.tripDate,
-        required this.tripStartPoint,
-        required this.tripDestination,
-        required this.userId,
-        required this.amount,
+        this.tripId,
+        this.tripDate,
+        this.tripStartPoint,
+        this.tripDestination,
+        this.userId,
+        this.amount,
         this.co,
-        required this.accepted,
-        required this.path,
+        this.accepted,
+        this.path,
     });
 
     factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -55,5 +56,15 @@ class Datum {
         path: json["path"],
     );
 
- 
+    Map<String, dynamic> toJson() => {
+        "trip_id": tripId,
+        "trip_date": "${tripDate.year.toString().padLeft(4, '0')}-${tripDate.month.toString().padLeft(2, '0')}-${tripDate.day.toString().padLeft(2, '0')}",
+        "trip_start_point": tripStartPoint,
+        "trip_destination": tripDestination,
+        "user_id": userId,
+        "amount": amount,
+        "co": co,
+        "accepted": accepted,
+        "path": path,
+    };
 }
