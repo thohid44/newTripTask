@@ -2,12 +2,16 @@ import 'package:bus/Utils/colors.dart';
 import 'package:bus/Widget/customButtonOne.dart';
 import 'package:bus/Widget/custom_text_field.dart';
 import 'package:bus/pages/Ship/views/shipPage.dart';
+import 'package:bus/pages/TripPages/Controller/TripController.dart';
+import 'package:bus/pages/TripPages/views/trip_search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:get/get.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class GiveARide extends StatelessWidget {
   final TextEditingController search = TextEditingController();
+
   List<DropdownMenuItem<String>> get dropdownItem {
     List<DropdownMenuItem<String>> startPoint = [
       const DropdownMenuItem(child: Text("km"), value: "km"),
@@ -19,14 +23,14 @@ class GiveARide extends StatelessWidget {
   String startPoint = "km";
 
   List<DropdownMenuItem<String>> get dropdownItem2 {
-    List<DropdownMenuItem<String>> destination = [
+    List<DropdownMenuItem<String>> desRedious = [
       const DropdownMenuItem(child: Text("km"), value: "km"),
       const DropdownMenuItem(child: Text("feet"), value: "feet"),
     ];
-    return destination;
+    return desRedious;
   }
 
-  String destination = "km";
+  var destination = "";
 
   List<DropdownMenuItem<String>> get selectVehicle {
     List<DropdownMenuItem<String>> destination = [
@@ -35,8 +39,15 @@ class GiveARide extends StatelessWidget {
     ];
     return destination;
   }
+
   String vehicle = "select";
-  
+  var startkm = '';
+  var deskm = '';
+
+  var startRadius = '';
+  var desRadius = '';
+  var startPoints = '';
+  var tripContrller = Get.put(TripController());
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -48,28 +59,29 @@ class GiveARide extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 20.w),
           child: Row(
             children: [
-             Container( 
-              width: 135.w,
-             
-               child: CustomTextField(
-                txt: "Start Point",
-                label: "Start Point",
-                hint: "Start Point",
-                onChange: (){
-             
-               }),
-             ), 
+              Container(
+                width: 135.w,
+                child: CustomTextField(
+                    txt: "Start Point",
+                    label: "Start Point",
+                    hint: "Start Point",
+                    onChange: (t) {
+                      startPoints = t;
+                    }),
+              ),
               SizedBox(
                 width: 10.w,
               ),
               Container(
-                  width: 80.w,
-                  height: 35.h,
-                  child: CustomForm(
-                    hinttext: "Radius",
-                    radius: 5.r,
-                    textController: search,
-                  )),
+                width: 90.w,
+                child: CustomTextField(
+                    txt: "Radius",
+                    label: "Radius",
+                    hint: "Radius",
+                    onChange: (t) {
+                      startRadius = t;
+                    }),
+              ),
               SizedBox(
                 width: 10.w,
               ),
@@ -87,7 +99,10 @@ class GiveARide extends StatelessWidget {
                       fontWeight: FontWeight.normal,
                       color: Colors.black),
                   value: startPoint,
-                  onChanged: (value) {},
+                  onChanged: (t) {
+                    startkm = t!;
+                    print(startkm);
+                  },
                   items: dropdownItem,
                 ),
               ),
@@ -95,33 +110,36 @@ class GiveARide extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 20.h,
+          height: 15.h,
         ),
         Container(
           margin: EdgeInsets.symmetric(horizontal: 20.w),
           child: Row(
             children: [
               Container(
-                  width: 150.w,
-                  height: 35.h,
-                  alignment: Alignment.center,
-                  child: CustomForm(
-                    hinttext: "Destination ",
-                    radius: 5.r,
-                    textController: search,
-                  )),
+                width: 135.w,
+                child: CustomTextField(
+                    txt: "Destination",
+                    label: "Destination",
+                    hint: "Enter your destination",
+                    onChange: (t) {
+                      destination = t;
+                      print(destination);
+                    }),
+              ),
               SizedBox(
                 width: 10.w,
               ),
               Container(
-                  width: 80.w,
-                  height: 35.h,
-                  alignment: Alignment.center,
-                  child: CustomForm(
-                    hinttext: "Radius",
-                    radius: 5.r,
-                    textController: search,
-                  )),
+                width: 90.w,
+                child: CustomTextField(
+                    txt: "Radius",
+                    label: "Radius",
+                    hint: "Radius",
+                    onChange: (t) {
+                      startRadius = t;
+                    }),
+              ),
               SizedBox(
                 width: 10.w,
               ),
@@ -139,7 +157,9 @@ class GiveARide extends StatelessWidget {
                       fontWeight: FontWeight.normal,
                       color: Colors.black),
                   value: startPoint,
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    deskm = value!;
+                  },
                   items: dropdownItem,
                 ),
               ),
@@ -218,16 +238,30 @@ class GiveARide extends StatelessWidget {
               SizedBox(
                 width: 15.w,
               ),
-              Container(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Search",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 15.sp,
-                    ),
-                  )),
+              GestureDetector(
+                onTap: () {
+                  tripContrller.tripSearch(
+                    startPoints: startPoints,
+                    startRadius: startRadius,
+                    startkm: startkm,
+                    destination: destination,
+                    desRadius: desRadius,
+                    deskm: deskm,
+                    vehicle: vehicle,
+                  );
+                 
+                },
+                child: Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Search",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 15.sp,
+                      ),
+                    )),
+              ),
             ],
           ),
         ),
@@ -241,7 +275,54 @@ class GiveARide extends StatelessWidget {
           width: 150.w,
           btnColor: navyBlueColor,
           radius: 10.r,
-        )
+        ),
+         Obx(() =>  Expanded(
+           child: ListView.builder(
+          
+                  itemCount: tripContrller.tripSearchList.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      child: Container(
+                          margin: EdgeInsets.all(10.h),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 100.w,
+                                height: 100.h,
+                                child: Image.asset("assets/mobile.jpg"),
+                              ),
+                              Container(
+                                alignment: Alignment.topLeft,
+                                height: 100.h,
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      "Trips Search result",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    Text(
+                                      "Trips Search result",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    Text(
+                                      "Trips Search result",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          )),
+                    );
+                  }),
+         ),
+          ),
       ],
     );
   }

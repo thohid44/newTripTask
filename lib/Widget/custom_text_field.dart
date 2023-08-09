@@ -228,147 +228,150 @@ class _CustomTextFieldState extends State<CustomTextField> {
   Widget build(BuildContext context) {
     final clr=Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        widget.label == ''
-            ? Column(
-                children: [
-                  RichText(
-                    text: TextSpan(
-                      text: widget.label,
-                      style: widget.labelStyle ??
-                          DefaultTextStyle.of(context).style,
-                      children: <TextSpan>[
-                        widget.require == null || widget.require == true
-                            ? const TextSpan(
-                                text: ' *', style: TextStyle(color: Colors.red))
-                            : const TextSpan(),
-                      ],
+    return Container(
+      height: 48.h,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          widget.label == ''
+              ? Column(
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        text: widget.label,
+                        style: widget.labelStyle ??
+                            DefaultTextStyle.of(context).style,
+                        children: <TextSpan>[
+                          widget.require == null || widget.require == true
+                              ? const TextSpan(
+                                  text: ' *', style: TextStyle(color: Colors.red))
+                              : const TextSpan(),
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 4,
-                  ),
-                ],
-              )
-            : Container(),
-            
-        TextFormField(
-          onTap: () {
-            setState(() {
-              FocusScope.of(context).requestFocus(myFocusNode);
-            });
-          },
-          focusNode: myFocusNode,
-          keyboardType: widget.keyboardType,
-          maxLines: widget.maxLines,
-          maxLength: widget.maxLength,
-          style: widget.textStyle,
-          readOnly: widget.readOnly,
-          initialValue: widget.initialValue,
-          inputFormatters: widget.keyboardType == TextInputType.number
-              ? <TextInputFormatter>[
-                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                ]
-              : null,
-          textInputAction: widget.textInputAction ?? TextInputAction.next,
-          obscureText:
-              widget.isPasswordField == true ? _passwordInVisible : false,
-          decoration: InputDecoration(
-            // labelText:widget.text,
-              suffixIcon: widget.isPasswordField
-                  ? IconButton(
-                      icon: Icon(
-                          _passwordInVisible
-                              ? Icons.visibility_off
-                              : Icons.visibility,
-                          color: HexColor("#C4C4C4")),
-                      onPressed: () {
-                        setState(() {
-                          _passwordInVisible =
-                              !_passwordInVisible; //change boolean value
-                        });
-                      },
-                    )
-                  : null,
-              hintText: widget.hint,
-              label: Text(
-                "${widget.txt}",
-                style: textTheme.titleMedium?.copyWith()
-              ),
-              labelStyle: textTheme.caption?.copyWith(
+                    const SizedBox(
+                      height: 3,
+                    ),
+                  ],
+                )
+              : Container(),
+              
+          TextFormField(
+            onTap: () {
+              setState(() {
+                FocusScope.of(context).requestFocus(myFocusNode);
+              });
+            },
+            focusNode: myFocusNode,
+            keyboardType: widget.keyboardType,
+            maxLines: widget.maxLines,
+            maxLength: widget.maxLength,
+            style: widget.textStyle,
+            readOnly: widget.readOnly,
+            initialValue: widget.initialValue,
+            inputFormatters: widget.keyboardType == TextInputType.number
+                ? <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                  ]
+                : null,
+            textInputAction: widget.textInputAction ?? TextInputAction.next,
+            obscureText:
+                widget.isPasswordField == true ? _passwordInVisible : false,
+            decoration: InputDecoration(
+              // labelText:widget.text,
+                suffixIcon: widget.isPasswordField
+                    ? IconButton(
+                        icon: Icon(
+                            _passwordInVisible
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            color: HexColor("#C4C4C4")),
+                        onPressed: () {
+                          setState(() {
+                            _passwordInVisible =
+                                !_passwordInVisible; //change boolean value
+                          });
+                        },
+                      )
+                    : null,
+                hintText: widget.hint,
+                label: Text(
+                  "${widget.txt}",
+                  style: textTheme.titleMedium?.copyWith()
+                ),
+                labelStyle: textTheme.caption?.copyWith(
+                    fontSize: 16.sp,
+                    color: myFocusNode.hasFocus
+                        ?Theme.of(context).focusColor
+                        : Colors.black54
+                ),
+                
+                helperText: widget.helperTxt,
+                hintStyle: textTheme.bodySmall?.copyWith(
                   fontSize: 16,
-                  color: myFocusNode.hasFocus
-                      ?Theme.of(context).focusColor
-                      : Colors.black54
-              ),
-              
-              helperText: widget.helperTxt,
-              hintStyle: textTheme.bodySmall?.copyWith(
-                fontSize: 16,
-              ),
-              border:OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:  BorderSide(color: clr.outline),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:  BorderSide(color: clr.outline),
-                      ), 
-              
-            disabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:  BorderSide(color: clr.outline),
-                      ),
-              enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:  BorderSide(color: clr.outline),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.blue),
-                      ),
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 14, horizontal: 16)),
-          onChanged: (value) {
-            widget.onChange(value);
-          },
-          validator: (value) {
-              var validation=  RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-      .hasMatch(value!);
-            if (widget.require == false) {
-              return null;
-            }
-             if (widget.isMail==true) {
-                print("in0");
-
-              if (validation) {
-                print("in");
-             
-              
+                ),
+                border:OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.r),
+                          borderSide:  BorderSide(color: clr.outline),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:  BorderSide(color: clr.outline),
+                        ), 
+                
+              disabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:  BorderSide(color: clr.outline),
+                        ),
+                enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:  BorderSide(color:Colors.black),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: Colors.blue),
+                        ),
+                contentPadding:
+                     EdgeInsets.symmetric(vertical: 10.h, horizontal: 12.w)),
+            onChanged: (value) {
+              widget.onChange(value);
+            },
+            validator: (value) {
+                var validation=  RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(value!);
+              if (widget.require == false) {
                 return null;
               }
-              return widget.error;
-            }
-            if (value == null || value.isEmpty) {
-              if (widget.error == null) {
-                return widget.hint;
+               if (widget.isMail==true) {
+                  print("in0");
+    
+                if (validation) {
+                  print("in");
+               
+                
+                  return null;
+                }
+                return widget.error;
               }
-              return widget.error;
-            }
-            if (widget.minLength != null) {
-              if (value.length < widget.minLength!) {
+              if (value == null || value.isEmpty) {
                 if (widget.error == null) {
                   return widget.hint;
                 }
                 return widget.error;
               }
-            }
-            return null;
-          },
-        )
-      ],
+              if (widget.minLength != null) {
+                if (value.length < widget.minLength!) {
+                  if (widget.error == null) {
+                    return widget.hint;
+                  }
+                  return widget.error;
+                }
+              }
+              return null;
+            },
+          )
+        ],
+      ),
     );
   }
 }
