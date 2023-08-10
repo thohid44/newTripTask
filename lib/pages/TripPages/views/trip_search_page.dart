@@ -12,6 +12,9 @@ class TripSearchPage extends GetView<TripController> {
       body: Obx(() =>  ListView.builder(
                 itemCount: tripContrller.tripSearchList.length,
                 itemBuilder: (context, index) {
+                  if(tripContrller.tripSearchList.length ==0){
+                    return CircularProgressIndicator();
+                  }
                   return Card(
                     child: Container(
                         margin: EdgeInsets.all(10.h),

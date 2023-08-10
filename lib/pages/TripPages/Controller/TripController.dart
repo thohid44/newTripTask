@@ -135,6 +135,7 @@ class TripController extends GetxController {
         TripSearchModel data = TripSearchModel.fromJson(jsonData);
         tripSearchList = data.data!;
       }
+       isLoading(false);
     } catch (e) {
       isLoading(false);
       print("Error $e");

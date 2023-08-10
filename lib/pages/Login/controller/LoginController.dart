@@ -9,11 +9,8 @@ import 'package:http/http.dart' as http;
 
 class LoginController extends GetxController {
   var isLoading = false.obs;
-<<<<<<< HEAD
+  var isRegLoading =false.obs;
   var isLogLoading = false.obs; 
-=======
-  var isRegLoading = false.obs;
->>>>>>> 48593e39ef44f232e623b579134c84b09f36087d
   final _box = GetStorage();
   var userClient = http.Client();
   var url = "http://api.tripshiptask.com/api/auth/login";
@@ -32,15 +29,9 @@ class LoginController extends GetxController {
           Get.to(HomeScreen());
         }
       }
-<<<<<<< HEAD
-        isLogLoading(false);
-    } catch (e) {
-        isLogLoading(false);
-=======
       isLoading(false);
     } catch (e) {
       isLoading(false);
->>>>>>> 48593e39ef44f232e623b579134c84b09f36087d
       print("Error $e");
     }
   }

@@ -1,9 +1,16 @@
+import 'dart:convert';
+
+import 'package:bus/Api_services/base_url.dart';
 import 'package:bus/Utils/colors.dart';
+import 'package:bus/Utils/localstorekey.dart';
 import 'package:bus/Widget/customButtonOne.dart';
 import 'package:bus/Widget/custom_text_field.dart';
 import 'package:bus/pages/Ship/views/shipPage.dart';
 import 'package:bus/pages/TripPages/Controller/TripController.dart';
+import 'package:bus/pages/TripPages/model/trips_search_model.dart';
 import 'package:bus/pages/TripPages/views/trip_search_page.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -48,6 +55,31 @@ class GiveARide extends StatelessWidget {
   var desRadius = '';
   var startPoints = '';
   var tripContrller = Get.put(TripController());
+  final _box = GetStorage();
+  tripSearch() async {
+    var token = _box.read(LocalStoreKey.token);
+    print("search token $token");
+    try {
+      var response = await http.get(
+        Uri.parse(
+            "${baseUrl}trip-search?slat=23.752308&slng=23.752308&dlat=23.7382053&dlng=23.7382053&sradious&dradious&unit=km&post_type=offer"),
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + token,
+        },
+      );
+      print(response);
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(response.body);
+        print(jsonData);
+
+        return TripSearchModel.fromJson(jsonData);
+      }
+    } catch (e) {
+      print("Error $e");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -240,16 +272,7 @@ class GiveARide extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  tripContrller.tripSearch(
-                    startPoints: startPoints,
-                    startRadius: startRadius,
-                    startkm: startkm,
-                    destination: destination,
-                    desRadius: desRadius,
-                    deskm: deskm,
-                    vehicle: vehicle,
-                  );
-                 
+                  tripSearch();
                 },
                 child: Container(
                     alignment: Alignment.center,
@@ -276,53 +299,67 @@ class GiveARide extends StatelessWidget {
           btnColor: navyBlueColor,
           radius: 10.r,
         ),
-         Obx(() =>  Expanded(
-           child: ListView.builder(
-          
-                  itemCount: tripContrller.tripSearchList.length,
-                  itemBuilder: (context, index) {
-                    return Card(
-                      child: Container(
-                          margin: EdgeInsets.all(10.h),
-                          child: Row(
-                            children: [
-                              Container(
-                                width: 100.w,
-                                height: 100.h,
-                                child: Image.asset("assets/mobile.jpg"),
+     
+       SizedBox(height: 10.h,), 
+       FutureBuilder(
+        future: tripSearch(),
+        builder: ((context,AsyncSnapshot snapshot) {
+           if (snapshot.connectionState ==ConnectionState.waiting) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(),
+                  ],
+                );
+                
+                  }
+        return Expanded(
+            child: ListView.builder(
+                itemCount:snapshot.data.data.length ,
+                itemBuilder: (context, index) {
+                 
+                  return Card(
+                    child: Container(
+                        margin: EdgeInsets.all(10.h),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 100.w,
+                              height: 100.h,
+                              child: Image.asset("assets/mobile.jpg"),
+                            ),
+                            Container(
+                              alignment: Alignment.topLeft,
+                              height: 100.h,
+                              child: const Column(
+                                children: [
+                                  Text(
+                                    "Trips Search result",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  Text(
+                                    "Trips Search result",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  Text(
+                                    "Trips Search result",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Container(
-                                alignment: Alignment.topLeft,
-                                height: 100.h,
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      "Trips Search result",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    Text(
-                                      "Trips Search result",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    Text(
-                                      "Trips Search result",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          )),
-                    );
-                  }),
-         ),
-          ),
+                            )
+                          ],
+                        )),
+                  );
+                }),
+          );
+       }))
       ],
     );
   }
