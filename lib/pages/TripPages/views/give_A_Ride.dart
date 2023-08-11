@@ -37,7 +37,7 @@ class GiveARide extends StatelessWidget {
     return desRedious;
   }
 
-  var destination = "";
+
 
   List<DropdownMenuItem<String>> get selectVehicle {
     List<DropdownMenuItem<String>> destination = [
@@ -54,11 +54,13 @@ class GiveARide extends StatelessWidget {
   var startRadius = '';
   var desRadius = '';
   var startPoints = '';
+  var destionaPoint = '';
   var tripContrller = Get.put(TripController());
   final _box = GetStorage();
   tripSearch() async {
     var token = _box.read(LocalStoreKey.token);
     print("search token $token");
+    //"${baseUrl}trip-search?slat=23.752308&slng=23.752308&dlat=23.7382053&dlng=23.7382053&sradious&dradious&unit=km&post_type=offer"
     try {
       var response = await http.get(
         Uri.parse(
@@ -99,6 +101,7 @@ class GiveARide extends StatelessWidget {
                     hint: "Start Point",
                     onChange: (t) {
                       startPoints = t;
+                      print("Start Point $startPoints");
                     }),
               ),
               SizedBox(
@@ -112,6 +115,7 @@ class GiveARide extends StatelessWidget {
                     hint: "Radius",
                     onChange: (t) {
                       startRadius = t;
+                       print("Start Radius $startRadius");
                     }),
               ),
               SizedBox(
@@ -133,7 +137,7 @@ class GiveARide extends StatelessWidget {
                   value: startPoint,
                   onChanged: (t) {
                     startkm = t!;
-                    print(startkm);
+                  print("Start Km $startkm");
                   },
                   items: dropdownItem,
                 ),
@@ -155,8 +159,8 @@ class GiveARide extends StatelessWidget {
                     label: "Destination",
                     hint: "Enter your destination",
                     onChange: (t) {
-                      destination = t;
-                      print(destination);
+                      destionaPoint = t;
+                      print("Destination Radius $destionaPoint");
                     }),
               ),
               SizedBox(
@@ -169,7 +173,8 @@ class GiveARide extends StatelessWidget {
                     label: "Radius",
                     hint: "Radius",
                     onChange: (t) {
-                      startRadius = t;
+                      desRadius = t;
+                          print("Des Radius $desRadius");
                     }),
               ),
               SizedBox(
@@ -191,6 +196,7 @@ class GiveARide extends StatelessWidget {
                   value: startPoint,
                   onChanged: (value) {
                     deskm = value!;
+                    print("Des km $deskm");
                   },
                   items: dropdownItem,
                 ),
@@ -299,67 +305,66 @@ class GiveARide extends StatelessWidget {
           btnColor: navyBlueColor,
           radius: 10.r,
         ),
-     
-       SizedBox(height: 10.h,), 
-       FutureBuilder(
-        future: tripSearch(),
-        builder: ((context,AsyncSnapshot snapshot) {
-           if (snapshot.connectionState ==ConnectionState.waiting) {
+        SizedBox(
+          height: 10.h,
+        ),
+        FutureBuilder(
+            future: tripSearch(),
+            builder: ((context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CircularProgressIndicator(),
                   ],
                 );
-                
-                  }
-        return Expanded(
-            child: ListView.builder(
-                itemCount:snapshot.data.data.length ,
-                itemBuilder: (context, index) {
-                 
-                  return Card(
-                    child: Container(
-                        margin: EdgeInsets.all(10.h),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 100.w,
-                              height: 100.h,
-                              child: Image.asset("assets/mobile.jpg"),
-                            ),
-                            Container(
-                              alignment: Alignment.topLeft,
-                              height: 100.h,
-                              child: const Column(
-                                children: [
-                                  Text(
-                                    "Trips Search result",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                    ),
+              }
+              return Expanded(
+                child: ListView.builder(
+                    itemCount: snapshot.data.data.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        child: Container(
+                            margin: EdgeInsets.all(10.h),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 100.w,
+                                  height: 100.h,
+                                  child: Image.asset("assets/mobile.jpg"),
+                                ),
+                                Container(
+                                  alignment: Alignment.topLeft,
+                                  height: 100.h,
+                                  child: const Column(
+                                    children: [
+                                      Text(
+                                        "Trips Search result",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      Text(
+                                        "Trips Search result",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      Text(
+                                        "Trips Search result",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  Text(
-                                    "Trips Search result",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  Text(
-                                    "Trips Search result",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        )),
-                  );
-                }),
-          );
-       }))
+                                )
+                              ],
+                            )),
+                      );
+                    }),
+              );
+            }))
       ],
     );
   }

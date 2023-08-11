@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:bus/Api_services/ApiService.dart';
 import 'package:bus/Api_services/base_url.dart';
+import 'package:bus/Utils/colors.dart';
 import 'package:bus/Utils/localstorekey.dart';
 import 'package:bus/pages/TripPages/model/my_trip_posts_model.dart';
 import 'package:bus/pages/TripPages/model/my_trips_offer_model.dart';
@@ -51,7 +52,9 @@ class TripController extends GetxController {
         print(response.statusCode);
         var jsonData = jsonDecode(response.body);
         print(jsonData);
-        Get.snackbar("Get Ride", "Successfully Store");
+        Get.snackbar("Get Ride", "Successfully Store", 
+        backgroundColor: navyBlueColor
+        );
       }
     } catch (e) {
       print("Error $e");

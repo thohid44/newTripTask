@@ -3,10 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
-
- 
-
 class CustomTextField1 extends StatefulWidget {
   final String label;
   final String hint;
@@ -113,7 +109,7 @@ class _CustomTextField1State extends State<CustomTextField1> {
                   : null,
               hintText: widget.hint,
               counterText: "",
-              hintStyle:  TextStyle(
+              hintStyle: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.normal,
                   letterSpacing: 0.w),
@@ -127,7 +123,7 @@ class _CustomTextField1State extends State<CustomTextField1> {
                 borderSide: BorderSide(color: HexColor("#C4C4C4")),
               ),
               contentPadding:
-                   EdgeInsets.symmetric(vertical: 14.h, horizontal: 16.w)),
+                  EdgeInsets.symmetric(vertical: 14.h, horizontal: 16.w)),
           onChanged: (value) {
             widget.onChange(value);
           },
@@ -175,16 +171,17 @@ class CustomTextField extends StatefulWidget {
   final bool readOnly;
   final bool? isMail;
   final String? txt;
-  final String? helperTxt; 
+  final String? helperTxt;
   final List<TextInputFormatter>? inputFormatters;
 
   const CustomTextField(
       {Key? key,
-      this.label,this.isMail,
+      this.label,
+      this.isMail,
       this.helperTxt,
       this.labelStyle,
       this.require,
-        this.hint,
+      this.hint,
       this.txt,
       this.error,
       required this.onChange,
@@ -226,7 +223,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    final clr=Theme.of(context).colorScheme;
+    final clr = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     return Container(
       height: 48.h,
@@ -244,7 +241,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
                         children: <TextSpan>[
                           widget.require == null || widget.require == true
                               ? const TextSpan(
-                                  text: ' *', style: TextStyle(color: Colors.red))
+                                  text: ' *',
+                                  style: TextStyle(color: Colors.red))
                               : const TextSpan(),
                         ],
                       ),
@@ -255,7 +253,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   ],
                 )
               : Container(),
-              
           TextFormField(
             onTap: () {
               setState(() {
@@ -278,7 +275,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             obscureText:
                 widget.isPasswordField == true ? _passwordInVisible : false,
             decoration: InputDecoration(
-              // labelText:widget.text,
+                // labelText:widget.text,
                 suffixIcon: widget.isPasswordField
                     ? IconButton(
                         icon: Icon(
@@ -295,60 +292,57 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       )
                     : null,
                 hintText: widget.hint,
-                label: Text(
-                  "${widget.txt}",
-                  style: textTheme.titleMedium?.copyWith()
-                ),
+                label: Text("${widget.txt}",
+                    style: textTheme.titleMedium?.copyWith()),
                 labelStyle: textTheme.caption?.copyWith(
                     fontSize: 16.sp,
                     color: myFocusNode.hasFocus
-                        ?Theme.of(context).focusColor
-                        : Colors.black54
-                ),
-                
+                        ? Theme.of(context).focusColor
+                        : Colors.black54),
                 helperText: widget.helperTxt,
                 hintStyle: textTheme.bodySmall?.copyWith(
                   fontSize: 16,
                 ),
-                border:OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-                          borderSide:  BorderSide(color: clr.outline),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide:  BorderSide(color: clr.outline),
-                        ), 
-                
-              disabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide:  BorderSide(color: clr.outline),
-                        ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.r),
+                  borderSide: BorderSide(color: clr.outline),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: clr.outline),
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: clr.outline),
+                ),
                 enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide:  BorderSide(color:Colors.black),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: Colors.blue),
-                        ),
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.black),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(color: Colors.blue),
+                ),
                 contentPadding:
-                     EdgeInsets.symmetric(vertical: 10.h, horizontal: 12.w)),
+                    EdgeInsets.symmetric(vertical: 10.h, horizontal: 12.w)),
             onChanged: (value) {
               widget.onChange(value);
+            
+              
             },
             validator: (value) {
-                var validation=  RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(value!);
+              var validation = RegExp(
+                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                  .hasMatch(value!);
               if (widget.require == false) {
                 return null;
               }
-               if (widget.isMail==true) {
-                  print("in0");
-    
+              if (widget.isMail == true) {
+                print("in0");
+
                 if (validation) {
                   print("in");
-               
-                
+
                   return null;
                 }
                 return widget.error;

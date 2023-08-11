@@ -215,9 +215,10 @@ class CustomForm extends StatelessWidget {
       style: TextStyle(color: Colors.black),
       decoration: InputDecoration(
         hintText: hinttext ?? "Enter Data",
-        border: InputBorder.none,
+        border: OutlineInputBorder(), 
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(radius ?? 0.0.r)),
+        
       ),
     );
   }
@@ -248,14 +249,17 @@ class TripTaskPost extends StatelessWidget {
                             child: CustomText("Start Point: Rajshahi",
                                 Colors.black, FontWeight.w600, 13.sp),
                           ),
+                          SizedBox(height: 10.h,), 
                           Container(
                             child: CustomText("Destination: Bogura, Bangladesh",
                                 Colors.black, FontWeight.w600, 13.sp),
                           ),
+                           SizedBox(height: 10.h,), 
                           Container(
                             child: CustomText("Offers: 10-20", Colors.black,
                                 FontWeight.w600, 13.sp),
                           ),
+                           SizedBox(height: 10.h,), 
                           Container(
                             child: CustomText(
                                 "Posted by: Admin Gov ID Verifide",
@@ -263,6 +267,7 @@ class TripTaskPost extends StatelessWidget {
                                 FontWeight.w600,
                                 13.sp),
                           ),
+                           SizedBox(height: 10.h,), 
                           Container(
                             child: CustomText(
                                 "Male/25/Bachelor Degree or equivalent/Private job",
@@ -270,6 +275,7 @@ class TripTaskPost extends StatelessWidget {
                                 FontWeight.w600,
                                 13.sp),
                           ),
+                           SizedBox(height: 10.h,), 
                           Container(
                             child: CustomText("Vehicle: Car", Colors.black,
                                 FontWeight.w600, 13.sp),
@@ -277,6 +283,7 @@ class TripTaskPost extends StatelessWidget {
                         ],
                       ),
                     ),
+                     SizedBox(height: 10.h,), 
                     Container(
                       width: 120.w,
                       child: Column(
@@ -288,6 +295,7 @@ class TripTaskPost extends StatelessWidget {
                             child: CustomText("Amount \$ 2400", Colors.black,
                                 FontWeight.w600, 13.sp),
                           ),
+                           SizedBox(height: 10.h,), 
                           Container(
                             child: CustomText("Details", Colors.black,
                                 FontWeight.w600, 13.sp),
@@ -304,6 +312,7 @@ class TripTaskPost extends StatelessWidget {
                             child: CustomText("Make offer", Colors.white,
                                 FontWeight.w600, 13.sp),
                           ),
+                           SizedBox(height: 10.h,), 
                           Container(
                             padding: EdgeInsets.symmetric(vertical: 10.h),
                             child: CustomText("Passenger:2", Colors.black,

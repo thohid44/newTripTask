@@ -19,7 +19,7 @@ class TripPage extends StatefulWidget {
 
 class _TripPageState extends State<TripPage> {
   final TextEditingController search = TextEditingController();
-  bool btn1Status = false;
+  bool btn1Status = true;
    bool btn2Status = false;
   @override
   Widget build(BuildContext context) {

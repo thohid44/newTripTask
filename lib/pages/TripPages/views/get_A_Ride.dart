@@ -20,6 +20,7 @@ class GetARide extends StatelessWidget {
 
   String vehicle = "Select vehicle";
   var vehicled; 
+  
   final TextEditingController startPoint = TextEditingController(); 
    final TextEditingController description = TextEditingController(); 
     final TextEditingController note = TextEditingController(); 
@@ -141,6 +142,7 @@ class GetARide extends StatelessWidget {
                     border: Border.all(width: 1.w, color: Colors.grey),
                     borderRadius: BorderRadius.circular(10.r)),
                 child: DropdownButton(
+                  hint: vehicled,
                   underline: SizedBox(),
                   style: TextStyle(
                       fontSize: 12.sp,
@@ -150,6 +152,7 @@ class GetARide extends StatelessWidget {
                   onChanged: (value) {
                     print(value); 
                     vehicled = value; 
+                    print("select ")
                    
                   },
                   items: vehicleItem,
