@@ -7,8 +7,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 
-class GetARide extends StatelessWidget {
+class GetARide extends StatefulWidget {
+  @override
+  State<GetARide> createState() => _GetARideState();
+}
+
+class _GetARideState extends State<GetARide> {
   final TextEditingController search = TextEditingController();
+
   List<DropdownMenuItem<String>> get vehicleItem {
     List<DropdownMenuItem<String>> destination = [
       const DropdownMenuItem(
@@ -19,12 +25,14 @@ class GetARide extends StatelessWidget {
   }
 
   String vehicle = "Select vehicle";
-  var vehicled; 
-  
-  final TextEditingController startPoint = TextEditingController(); 
-   final TextEditingController description = TextEditingController(); 
-    final TextEditingController note = TextEditingController(); 
 
+  var vehicled; 
+
+  final TextEditingController startPoint = TextEditingController(); 
+
+   final TextEditingController description = TextEditingController(); 
+
+    final TextEditingController note = TextEditingController(); 
 
   List<DropdownMenuItem<String>> get howManyYou {
     List<DropdownMenuItem<String>> destination = [
@@ -38,6 +46,7 @@ class GetARide extends StatelessWidget {
   }
 
   String howMany = "How many of you";
+
   var howmay ;
 
   List<DropdownMenuItem<String>> get preferRide {
@@ -51,6 +60,7 @@ class GetARide extends StatelessWidget {
   }
 
   String prefer = "Prefer to get ride from";
+
   var prefered;
 
   List<DropdownMenuItem<String>> get willingPay {
@@ -62,7 +72,9 @@ class GetARide extends StatelessWidget {
   }
 
   String willing = "USD";
+
   var currency; 
+
   @override
   Widget build(BuildContext context) {
   var controller = Get.put(TripController());
@@ -87,14 +99,26 @@ class GetARide extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                  width: 150.w,
-                  height: 35.h,
-                  child: CustomForm(
-                    hinttext: "Select Date",
-                    radius: 5.r,
-                    textController: search,
-                  )),
+             InkWell( 
+              
+              onTap: () {
+                 dairyDatePicker(context);
+                },
+              child: Container(
+                  width: 300.w,
+                  height: 40.h,
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.symmetric(horizontal: 30.w),
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 0.5.w, color: Colors.grey)
+                  ),
+                  child: dateStatus==false? Text(
+              "${pickDate.day}-${pickDate.month}-${pickDate.year}",
+              style:  TextStyle(fontSize: 14.sp, color: Colors.black, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ):Text("${pickDate.day}-${pickDate.month}-${pickDate.year}"),),
+            ),
+
               Container(
                   width: 150.w,
                   height: 35.h,
@@ -152,7 +176,7 @@ class GetARide extends StatelessWidget {
                   onChanged: (value) {
                     print(value); 
                     vehicled = value; 
-                    print("select ")
+                    print("select ");
                    
                   },
                   items: vehicleItem,
@@ -295,5 +319,40 @@ class GetARide extends StatelessWidget {
         )
       ],
     );
+  }
+
+     String? selectedDates;
+
+ DateTime pickDate = DateTime.now();
+
+   var dateDairy;
+
+bool dateStatus = false; 
+
+  dairyDatePicker(context) async {
+    DateTime? userSelectedDate = await showDatePicker(
+      context: context,
+      initialDate: pickDate,
+      firstDate: DateTime(2021),
+  //  firstDate: DateTime.now(),
+      // firstDate: DateTime(2022, 9, 15),
+
+      // lastDate: DateTime(3000),
+
+      lastDate: DateTime(2030, 01, 01),
+    );
+
+    if (userSelectedDate == null) {
+      return;
+    } else {
+      setState(() {
+      //   dateStatus = true; 
+        pickDate = userSelectedDate;
+      print(pickDate); 
+        dateDairy =
+            "${pickDate.year}-${pickDate.month}-${pickDate.day}";
+        print("Date $selectedDates");
+      });
+    }
   }
 }
