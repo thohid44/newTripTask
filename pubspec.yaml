@@ -37,7 +37,7 @@ dependencies:
   webview_flutter: ^4.2.0
   flutter_launcher_icons: 
   google_place: 
-  google_maps_flutter: ^2.3.0
+  google_maps_flutter: ^2.3.0 
   location: ^4.4.0
   flutter_polyline_points: ^1.0.0
   font_awesome_flutter: ^10.5.0
