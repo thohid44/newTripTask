@@ -76,9 +76,13 @@ class _GiveARideState extends State<GiveARide> {
     print("search token $token");
     //"${baseUrl}trip-search?slat=23.752308&slng=23.752308&dlat=23.7382053&dlng=23.7382053&sradious&dradious&unit=km&post_type=offer"
     try {
+      var startLats = startPosition!.geometry!.location!.lat; 
+         var startLong = startPosition!.geometry!.location!.lng; 
+         var endLat = endPosition!.geometry!.location!.lat; 
+      var endLong = endPosition!.geometry!.location!.lng; 
       var response = await http.get(
         Uri.parse(
-            "${baseUrl}trip-search?slat=23.752308&slng=23.752308&dlat=23.7382053&dlng=23.7382053&sradious&dradious&unit=km&post_type=offer"),
+            "${baseUrl}trip-search?slat=$startLats&slng=$startLong&dlat=$endLat&dlng=$endLong&sradious&dradious&unit=km&post_type=offer"),
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer ' + token,
@@ -146,90 +150,10 @@ class _GiveARideState extends State<GiveARide> {
         SizedBox(
           height: 20.h,
         ),
-        TextField(
-          controller: _startSearchFieldController,
-          autofocus: false,
-          focusNode: startFocusNode,
-          style: TextStyle(fontSize: 24),
-          decoration: InputDecoration(
-              hintText: 'Starting Point',
-              hintStyle:
-                  const TextStyle(fontWeight: FontWeight.w500, fontSize: 24),
-              filled: true,
-              fillColor: Colors.grey[200],
-              border: InputBorder.none,
-              suffixIcon: _startSearchFieldController.text.isNotEmpty
-                  ? IconButton(
-                      onPressed: () {
-                        setState(() {
-                          predictions = [];
-                          _startSearchFieldController.clear();
-                        });
-                      },
-                      icon: Icon(Icons.clear_outlined),
-                    )
-                  : null),
-          onChanged: (value) {
-            if (_debounce?.isActive ?? false) _debounce!.cancel();
-            _debounce = Timer(const Duration(milliseconds: 1000), () {
-              if (value.isNotEmpty) {
-                //places api
-                autoCompleteSearch(value);
-              } else {
-                //clear out the results
-                setState(() {
-                  predictions = [];
-                  startPosition = null;
-                });
-              }
-            });
-          },
-        ),
-        SizedBox(height: 10),
-        TextField(
-          controller: _endSearchFieldController,
-          autofocus: false,
-          focusNode: endFocusNode,
-          enabled: _startSearchFieldController.text.isNotEmpty &&
-              startPosition != null,
-          style: TextStyle(fontSize: 24),
-          decoration: InputDecoration(
-              hintText: 'End Point',
-              hintStyle:
-                  const TextStyle(fontWeight: FontWeight.w500, fontSize: 24),
-              filled: true,
-              fillColor: Colors.grey[200],
-              border: InputBorder.none,
-              suffixIcon: _endSearchFieldController.text.isNotEmpty
-                  ? IconButton(
-                      onPressed: () {
-                        setState(() {
-                          predictions = [];
-                          _endSearchFieldController.clear();
-                        });
-                      },
-                      icon: Icon(Icons.clear_outlined),
-                    )
-                  : null),
-          onChanged: (value) {
-            if (_debounce?.isActive ?? false) _debounce!.cancel();
-            _debounce = Timer(const Duration(milliseconds: 1000), () {
-              if (value.isNotEmpty) {
-                //places api
-                autoCompleteSearch(value);
-              } else {
-                //clear out the results
-                setState(() {
-                  predictions = [];
-                  endPosition = null;
-                });
-              }
-            });
-          },
-        ),
-        SizedBox(
-          height: 10.h,
-        ),
+        
+  
+      
+      
         ListView.builder(
             shrinkWrap: true,
             itemCount: predictions.length,
@@ -247,10 +171,12 @@ class _GiveARideState extends State<GiveARide> {
                 onTap: () async {
                   final placeId = predictions[index].placeId!;
                   final details = await googlePlace.details.get(placeId);
+                    
                   if (details != null && details.result != null && mounted) {
                     if (startFocusNode.hasFocus) {
                       setState(() {
                         startPosition = details.result;
+                       print("Start Point ${ startPosition!.geometry!.location!.lat}");
                         _startSearchFieldController.text =
                             details.result!.name!;
                         predictions = [];
@@ -258,6 +184,7 @@ class _GiveARideState extends State<GiveARide> {
                     } else {
                       setState(() {
                         endPosition = details.result;
+                         print("Start Point ${ endPosition!.geometry!.location!.lat}");
                         _endSearchFieldController.text = details.result!.name!;
                         predictions = [];
                       });
@@ -286,19 +213,44 @@ class _GiveARideState extends State<GiveARide> {
               Container(
                   width: 135.w,
                   child: TextField(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SearchScreen(),
-                            fullscreenDialog: true),
-                      );
-                      //    showPlaces(context: context);
-                    },
-                    autofocus: false,
-                    showCursor: false,
-                    decoration: InputDecoration(),
-                  )),
+            controller: _startSearchFieldController,
+            autofocus: false,
+            focusNode: startFocusNode,
+            style: TextStyle(fontSize: 15.sp),
+            decoration: InputDecoration(
+                hintText: 'Starting Point',
+                hintStyle:
+                     TextStyle(fontWeight: FontWeight.w500, fontSize: 15.sp),
+                filled: true,
+                fillColor: Colors.grey[200],
+                border: InputBorder.none,
+                suffixIcon: _startSearchFieldController.text.isNotEmpty
+                    ? IconButton(
+                        onPressed: () {
+                          setState(() {
+                            predictions = [];
+                            _startSearchFieldController.clear();
+                          });
+                        },
+                        icon: Icon(Icons.clear_outlined),
+                      )
+                    : null),
+            onChanged: (value) {
+              if (_debounce?.isActive ?? false) _debounce!.cancel();
+              _debounce = Timer(const Duration(milliseconds: 1000), () {
+                if (value.isNotEmpty) {
+                  //places api
+                  autoCompleteSearch(value);
+                } else {
+                  //clear out the results
+                  setState(() {
+                    predictions = [];
+                    startPosition = null;
+                  });
+                }
+              });
+            },
+          ),),
               SizedBox(
                 width: 10.w,
               ),
@@ -349,14 +301,47 @@ class _GiveARideState extends State<GiveARide> {
             children: [
               Container(
                 width: 135.w,
-                child: CustomTextField(
-                    txt: "Destination",
-                    label: "Destination",
-                    hint: "Enter your destination",
-                    onChange: (t) {
-                      destionaPoint = t;
-                      print("Destination Radius $destionaPoint");
-                    }),
+                child:   TextField(
+          controller: _endSearchFieldController,
+          autofocus: false,
+          focusNode: endFocusNode,
+          enabled: _startSearchFieldController.text.isNotEmpty &&
+              startPosition != null,
+          style: TextStyle(fontSize: 15.sp),
+          decoration: InputDecoration(
+              hintText: 'Destination Point',
+              hintStyle:
+                   TextStyle(fontWeight: FontWeight.w500, color: Colors.black, fontSize: 15.sp),
+              filled: true,
+              fillColor: Colors.grey[200],
+              border: InputBorder.none,
+              suffixIcon: _endSearchFieldController.text.isNotEmpty
+                  ? IconButton(
+                      onPressed: () {
+                        setState(() {
+                          predictions = [];
+                          _endSearchFieldController.clear();
+                        });
+                      },
+                      icon: Icon(Icons.clear_outlined),
+                    )
+                  : null),
+          onChanged: (value) {
+            if (_debounce?.isActive ?? false) _debounce!.cancel();
+            _debounce = Timer(const Duration(milliseconds: 1000), () {
+              if (value.isNotEmpty) {
+                //places api
+                autoCompleteSearch(value);
+              } else {
+                //clear out the results
+                setState(() {
+                  predictions = [];
+                  endPosition = null;
+                });
+              }
+            });
+          },
+        ),
               ),
               SizedBox(
                 width: 10.w,
@@ -453,45 +438,58 @@ class _GiveARideState extends State<GiveARide> {
         SizedBox(
           height: 20.h,
         ),
-        Container(
-          height: 35.h,
-          width: 150.w,
-          alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(horizontal: 10.w),
-          decoration: BoxDecoration(
-            color: navyBlueColor,
-            borderRadius: BorderRadius.circular(10.r),
-          ),
-          child: Row(
-            children: [
-              const Icon(
-                Icons.search,
-                color: Colors.white,
-              ),
-              SizedBox(
-                width: 15.w,
-              ),
-              GestureDetector(
-                onTap: () {
-                  tripSearch();
+        // Container(
+        //   height: 35.h,
+        //   width: 150.w,
+        //   alignment: Alignment.center,
+        //   padding: EdgeInsets.symmetric(horizontal: 10.w),
+        //   decoration: BoxDecoration(
+        //     color: navyBlueColor,
+        //     borderRadius: BorderRadius.circular(10.r),
+        //   ),
+        //   child: Row(
+        //     children: [
+        //       const Icon(
+        //         Icons.search,
+        //         color: Colors.white,
+        //       ),
+        //       SizedBox(
+        //         width: 15.w,
+        //       ),
+        //       // GestureDetector(
+        //       //   onTap: () {
+        //       //     tripSearch();
+        //       //     setState(() {
+        //       //       searchStatus = true; 
+        //       //     });
+        //       //   },
+        //       //   child: Container(
+        //       //       margin: EdgeInsets.symmetric(horizontal: 50.w),
+        //       //       alignment: Alignment.center,
+        //       //       child: Text(
+        //       //         "",
+        //       //         style: TextStyle(
+        //       //           color: Colors.white,
+        //       //           fontWeight: FontWeight.w700,
+        //       //           fontSize: 15.sp,
+        //       //         ),
+        //       //       )),
+        //       // ),
+        //     ],
+        //   ),
+        // ),
+          CustomButtonOne(
+          title: "Search",
+          onTab: () {
+              tripSearch();
                   setState(() {
                     searchStatus = true; 
                   });
-                },
-                child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 50.w),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Search",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 15.sp,
-                      ),
-                    )),
-              ),
-            ],
-          ),
+          },
+          height: 35.h,
+          width: 150.w,
+          btnColor: navyBlueColor,
+          radius: 10.r,
         ),
         SizedBox(
           height: 10.h,
