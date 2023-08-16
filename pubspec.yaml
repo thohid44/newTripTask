@@ -41,6 +41,7 @@ dependencies:
   location: ^4.4.0
   flutter_polyline_points: ^1.0.0
   font_awesome_flutter: ^10.5.0
+  permission_handler: ^10.4.3
 flutter_launcher_icons: 
   android: "launcher_icon"
   ios: true
