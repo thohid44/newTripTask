@@ -9,6 +9,7 @@ import 'package:bus/Widget/custom_text_field.dart';
 import 'package:bus/pages/Ship/views/shipPage.dart';
 import 'package:bus/pages/TripPages/Controller/TripController.dart';
 import 'package:bus/pages/TripPages/model/trips_search_model.dart';
+import 'package:bus/pages/TripPages/views/map_page.dart';
 import 'package:bus/pages/TripPages/views/please_search.dart';
 import 'package:bus/pages/TripPages/views/trip_search_page.dart';
 import 'package:get_storage/get_storage.dart';
@@ -76,10 +77,10 @@ class _GiveARideState extends State<GiveARide> {
     print("search token $token");
     //"${baseUrl}trip-search?slat=23.752308&slng=23.752308&dlat=23.7382053&dlng=23.7382053&sradious&dradious&unit=km&post_type=offer"
     try {
-      var startLats = startPosition!.geometry!.location!.lat; 
-         var startLong = startPosition!.geometry!.location!.lng; 
-         var endLat = endPosition!.geometry!.location!.lat; 
-      var endLong = endPosition!.geometry!.location!.lng; 
+      var startLats = startPosition!.geometry!.location!.lat;
+      var startLong = startPosition!.geometry!.location!.lng;
+      var endLat = endPosition!.geometry!.location!.lat;
+      var endLong = endPosition!.geometry!.location!.lng;
       var response = await http.get(
         Uri.parse(
             "${baseUrl}trip-search?slat=$startLats&slng=$startLong&dlat=$endLat&dlng=$endLong&sradious&dradious&unit=km&post_type=offer"),
@@ -148,62 +149,6 @@ class _GiveARideState extends State<GiveARide> {
     return ListView(
       children: [
         SizedBox(
-          height: 20.h,
-        ),
-        
-  
-      
-      
-        ListView.builder(
-            shrinkWrap: true,
-            itemCount: predictions.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                leading: CircleAvatar(
-                  child: Icon(
-                    Icons.pin_drop,
-                    color: Colors.white,
-                  ),
-                ),
-                title: Text(
-                  predictions[index].description.toString(),
-                ),
-                onTap: () async {
-                  final placeId = predictions[index].placeId!;
-                  final details = await googlePlace.details.get(placeId);
-                    
-                  if (details != null && details.result != null && mounted) {
-                    if (startFocusNode.hasFocus) {
-                      setState(() {
-                        startPosition = details.result;
-                       print("Start Point ${ startPosition!.geometry!.location!.lat}");
-                        _startSearchFieldController.text =
-                            details.result!.name!;
-                        predictions = [];
-                      });
-                    } else {
-                      setState(() {
-                        endPosition = details.result;
-                         print("Start Point ${ endPosition!.geometry!.location!.lat}");
-                        _endSearchFieldController.text = details.result!.name!;
-                        predictions = [];
-                      });
-                    }
-
-                    if (startPosition != null && endPosition != null) {
-                      print('navigate');
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => MapScreen(),
-                      //   ),
-                      // );
-                    }
-                  }
-                },
-              );
-            }),
-        SizedBox(
           height: 10.h,
         ),
         Container(
@@ -211,46 +156,47 @@ class _GiveARideState extends State<GiveARide> {
           child: Row(
             children: [
               Container(
-                  width: 135.w,
-                  child: TextField(
-            controller: _startSearchFieldController,
-            autofocus: false,
-            focusNode: startFocusNode,
-            style: TextStyle(fontSize: 15.sp),
-            decoration: InputDecoration(
-                hintText: 'Starting Point',
-                hintStyle:
-                     TextStyle(fontWeight: FontWeight.w500, fontSize: 15.sp),
-                filled: true,
-                fillColor: Colors.grey[200],
-                border: InputBorder.none,
-                suffixIcon: _startSearchFieldController.text.isNotEmpty
-                    ? IconButton(
-                        onPressed: () {
-                          setState(() {
-                            predictions = [];
-                            _startSearchFieldController.clear();
-                          });
-                        },
-                        icon: Icon(Icons.clear_outlined),
-                      )
-                    : null),
-            onChanged: (value) {
-              if (_debounce?.isActive ?? false) _debounce!.cancel();
-              _debounce = Timer(const Duration(milliseconds: 1000), () {
-                if (value.isNotEmpty) {
-                  //places api
-                  autoCompleteSearch(value);
-                } else {
-                  //clear out the results
-                  setState(() {
-                    predictions = [];
-                    startPosition = null;
-                  });
-                }
-              });
-            },
-          ),),
+                width: 135.w,
+                child: TextField(
+                  controller: _startSearchFieldController,
+                  autofocus: false,
+                  focusNode: startFocusNode,
+                  style: TextStyle(fontSize: 15.sp),
+                  decoration: InputDecoration(
+                      hintText: 'Starting Point',
+                      hintStyle: TextStyle(
+                          fontWeight: FontWeight.w500, fontSize: 15.sp),
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: InputBorder.none,
+                      suffixIcon: _startSearchFieldController.text.isNotEmpty
+                          ? IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  predictions = [];
+                                  _startSearchFieldController.clear();
+                                });
+                              },
+                              icon: Icon(Icons.clear_outlined),
+                            )
+                          : null),
+                  onChanged: (value) {
+                    if (_debounce?.isActive ?? false) _debounce!.cancel();
+                    _debounce = Timer(const Duration(milliseconds: 1000), () {
+                      if (value.isNotEmpty) {
+                        //places api
+                        autoCompleteSearch(value);
+                      } else {
+                        //clear out the results
+                        setState(() {
+                          predictions = [];
+                          startPosition = null;
+                        });
+                      }
+                    });
+                  },
+                ),
+              ),
               SizedBox(
                 width: 10.w,
               ),
@@ -301,47 +247,49 @@ class _GiveARideState extends State<GiveARide> {
             children: [
               Container(
                 width: 135.w,
-                child:   TextField(
-          controller: _endSearchFieldController,
-          autofocus: false,
-          focusNode: endFocusNode,
-          enabled: _startSearchFieldController.text.isNotEmpty &&
-              startPosition != null,
-          style: TextStyle(fontSize: 15.sp),
-          decoration: InputDecoration(
-              hintText: 'Destination Point',
-              hintStyle:
-                   TextStyle(fontWeight: FontWeight.w500, color: Colors.black, fontSize: 15.sp),
-              filled: true,
-              fillColor: Colors.grey[200],
-              border: InputBorder.none,
-              suffixIcon: _endSearchFieldController.text.isNotEmpty
-                  ? IconButton(
-                      onPressed: () {
+                child: TextField(
+                  controller: _endSearchFieldController,
+                  autofocus: false,
+                  focusNode: endFocusNode,
+                  enabled: _startSearchFieldController.text.isNotEmpty &&
+                      startPosition != null,
+                  style: TextStyle(fontSize: 15.sp),
+                  decoration: InputDecoration(
+                      hintText: 'Destination Point',
+                      hintStyle: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                          fontSize: 15.sp),
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: InputBorder.none,
+                      suffixIcon: _endSearchFieldController.text.isNotEmpty
+                          ? IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  predictions = [];
+                                  _endSearchFieldController.clear();
+                                });
+                              },
+                              icon: Icon(Icons.clear_outlined),
+                            )
+                          : null),
+                  onChanged: (value) {
+                    if (_debounce?.isActive ?? false) _debounce!.cancel();
+                    _debounce = Timer(const Duration(milliseconds: 1000), () {
+                      if (value.isNotEmpty) {
+                        //places api
+                        autoCompleteSearch(value);
+                      } else {
+                        //clear out the results
                         setState(() {
                           predictions = [];
-                          _endSearchFieldController.clear();
+                          endPosition = null;
                         });
-                      },
-                      icon: Icon(Icons.clear_outlined),
-                    )
-                  : null),
-          onChanged: (value) {
-            if (_debounce?.isActive ?? false) _debounce!.cancel();
-            _debounce = Timer(const Duration(milliseconds: 1000), () {
-              if (value.isNotEmpty) {
-                //places api
-                autoCompleteSearch(value);
-              } else {
-                //clear out the results
-                setState(() {
-                  predictions = [];
-                  endPosition = null;
-                });
-              }
-            });
-          },
-        ),
+                      }
+                    });
+                  },
+                ),
               ),
               SizedBox(
                 width: 10.w,
@@ -438,53 +386,67 @@ class _GiveARideState extends State<GiveARide> {
         SizedBox(
           height: 20.h,
         ),
-        // Container(
-        //   height: 35.h,
-        //   width: 150.w,
-        //   alignment: Alignment.center,
-        //   padding: EdgeInsets.symmetric(horizontal: 10.w),
-        //   decoration: BoxDecoration(
-        //     color: navyBlueColor,
-        //     borderRadius: BorderRadius.circular(10.r),
-        //   ),
-        //   child: Row(
-        //     children: [
-        //       const Icon(
-        //         Icons.search,
-        //         color: Colors.white,
-        //       ),
-        //       SizedBox(
-        //         width: 15.w,
-        //       ),
-        //       // GestureDetector(
-        //       //   onTap: () {
-        //       //     tripSearch();
-        //       //     setState(() {
-        //       //       searchStatus = true; 
-        //       //     });
-        //       //   },
-        //       //   child: Container(
-        //       //       margin: EdgeInsets.symmetric(horizontal: 50.w),
-        //       //       alignment: Alignment.center,
-        //       //       child: Text(
-        //       //         "",
-        //       //         style: TextStyle(
-        //       //           color: Colors.white,
-        //       //           fontWeight: FontWeight.w700,
-        //       //           fontSize: 15.sp,
-        //       //         ),
-        //       //       )),
-        //       // ),
-        //     ],
-        //   ),
-        // ),
-          CustomButtonOne(
+        SizedBox(
+          height: 20.h,
+        ),
+        ListView.builder(
+            shrinkWrap: true,
+            itemCount: predictions.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                leading: CircleAvatar(
+                  child: Icon(
+                    Icons.pin_drop,
+                    color: Colors.white,
+                  ),
+                ),
+                title: Text(
+                  predictions[index].description.toString(),
+                ),
+                onTap: () async {
+                  final placeId = predictions[index].placeId!;
+                  final details = await googlePlace.details.get(placeId);
+
+                  if (details != null && details.result != null && mounted) {
+                    if (startFocusNode.hasFocus) {
+                      setState(() {
+                        startPosition = details.result;
+                        print(
+                            "Start Point ${startPosition!.geometry!.location!.lat}");
+                        _startSearchFieldController.text =
+                            details.result!.name!;
+                        predictions = [];
+                      });
+                    } else {
+                      setState(() {
+                        endPosition = details.result;
+                        print(
+                            "Start Point ${endPosition!.geometry!.location!.lat}");
+                        _endSearchFieldController.text = details.result!.name!;
+                        predictions = [];
+                      });
+                    }
+
+                    if (startPosition != null && endPosition != null) {
+                      print('navigate');
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => MapScreen(),
+                      //   ),
+                      // );
+                    }
+                  }
+                },
+              );
+            }),
+        CustomButtonOne(
           title: "Search",
           onTab: () {
-              tripSearch();
-                  setState(() {
-                    searchStatus = true; 
-                  });
+            tripSearch();
+            setState(() {
+              searchStatus = true;
+            });
           },
           height: 35.h,
           width: 150.w,
@@ -505,64 +467,210 @@ class _GiveARideState extends State<GiveARide> {
         SizedBox(
           height: 10.h,
         ),
-        searchStatus ==true? FutureBuilder(
-            future: tripSearch(),
-            builder: ((context, AsyncSnapshot snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(),
-                  ],
-                );
-              }
-              return Expanded(
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: snapshot.data.data.length,
-                    itemBuilder: (context, index) {
-                      return Card(
-                        child: Container(
-                            margin: EdgeInsets.all(10.h),
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 100.w,
-                                  height: 100.h,
-                                  child: Image.asset("assets/mobile.jpg"),
-                                ),
-                                Container(
-                                  alignment: Alignment.topLeft,
-                                  height: 100.h,
-                                  child: const Column(
+        searchStatus == true
+            ? FutureBuilder(
+                future: tripSearch(),
+                builder: ((context, AsyncSnapshot snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator(),
+                      ],
+                    );
+                  }
+                  return Expanded(
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: snapshot.data.data.length,
+                        itemBuilder: (context, index) {
+                          return Card(
+                            child: GestureDetector( 
+                              onTap: (){
+                                Get.to(MapPage());
+                              },
+                              child: Container(
+                                  margin: EdgeInsets.all(10.h),
+                                  child: Row(
                                     children: [
-                                      Text(
-                                        "Trips Search result",
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                        ),
+                                      Container(
+                                        width: 80.w,
+                                        height: 80.h,
+                                        child: Image.asset("assets/mobile.jpg"),
                                       ),
-                                      Text(
-                                        "Trips Search result",
-                                        style: TextStyle(
-                                          color: Colors.black,
+                                      Container(
+                                        width: 240.w,
+                                        alignment: Alignment.topLeft,
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                    width: 70.w,
+                                                    child: Text(
+                                                      "Start Point :",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 13.sp,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10.w,
+                                                  ),
+                                                  Container(
+                                                    width: 150.w,
+                                                    child: Text(
+                                                      "${snapshot.data.data[index].startPoint.toString()}",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 13.sp),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(height: 8.h,),
+                                            Container(
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                    width: 70.w,
+                                              
+                                                    child: Text(
+                                                      "Destination",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 13.sp,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10.w, 
+                                                  ),
+                                                  Container(
+                                                    width: 150.w,
+                                                  
+                                                    child: Text(
+                                                      "${snapshot.data.data[index].destination.toString()}",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 13.sp),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(height: 8.h,),
+                                                Container(
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                    width: 70.w,
+                                                  
+                                                    child: Text(
+                                                      "Vehicle Type",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 13.sp,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10.w,
+                                                  ),
+                                                  Container(
+                                                    width: 150.w,
+                                                 
+                                                    child: Text(
+                                                      "${snapshot.data.data[index].vehicleType.toString()}",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 13.sp),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                                   SizedBox(height: 8.h,),
+                                                Container(
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                    width: 70.w,
+                                                
+                                                    child: Text(
+                                                      "No. Of Seat",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 13.sp,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10.w,
+                                                  ),
+                                                  Container(
+                                                    width: 150.w,
+                                                   
+                                                    child: Text(
+                                                      "${snapshot.data.data[index].vehicleSeat.toString()}",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 13.sp),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                                SizedBox(height: 8.h,),
+                                                Container(
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                    width: 70.w,
+                                                 
+                                                    child: Text(
+                                                      "Pay",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 13.sp,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10.w,
+                                                  ),
+                                                  Container(
+                                                    width: 150.w,
+                                                 
+                                                    child: Text(
+                                                      "${snapshot.data.data[index].pay.toString()}",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 13.sp),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                      Text(
-                                        "Trips Search result",
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                        ),
-                                      ),
+                                      )
                                     ],
-                                  ),
-                                )
-                              ],
-                            )),
-                      );
-                    }),
-              );
-            })): Container()
+                                  )),
+                            ),
+                          );
+                        }),
+                  );
+                }))
+            : Container()
       ],
     );
   }
