@@ -1,6 +1,8 @@
 import 'package:bus/Email_Verify/view/email_verification.dart';
+import 'package:bus/Widget/customButtonOne.dart';
 import 'package:bus/Widget/customText.dart';
 import 'package:bus/Widget/customTextForm.dart';
+import 'package:bus/Widget/custom_text_field.dart';
 import 'package:bus/Widget/trip_ship_task_bar.dart';
 import 'package:bus/pages/TripPages/Controller/TripController.dart';
 import 'package:bus/pages/TripPages/views/get_A_Ride.dart';
@@ -19,8 +21,9 @@ class TripPage extends StatefulWidget {
 
 class _TripPageState extends State<TripPage> {
   final TextEditingController search = TextEditingController();
+
   bool btn1Status = true;
-   bool btn2Status = false;
+  bool btn2Status = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,7 +115,7 @@ class _TripPageState extends State<TripPage> {
                   setState(() {
                     index = 0;
                     btn1Status = true;
-                    btn2Status = false; 
+                    btn2Status = false;
                   });
                 },
                 child: Container(
@@ -138,8 +141,8 @@ class _TripPageState extends State<TripPage> {
                 onTap: () {
                   setState(() {
                     index = 1;
-                        btn1Status = false;
-                    btn2Status = true ; 
+                    btn1Status = false;
+                    btn2Status = true;
                   });
                 },
                 child: Container(
@@ -147,7 +150,8 @@ class _TripPageState extends State<TripPage> {
                   width: 160.w,
                   height: 30.h,
                   decoration: BoxDecoration(
-                      color:  btn2Status == true ? Color(0xff4CA4C7) : Colors.grey,
+                      color:
+                          btn2Status == true ? Color(0xff4CA4C7) : Colors.grey,
                       borderRadius: BorderRadius.circular(10.r)),
                   child: Text(
                     "Get a Ride",
@@ -231,6 +235,20 @@ class CustomForm extends StatelessWidget {
 
 class TripTaskPost extends StatelessWidget {
   var controller = Get.put(TripController());
+  final _formOfferkey = GlobalKey<FormState>();
+  final TextEditingController shortmessage = TextEditingController();
+  var amount = '';
+  var seatValue;
+  bool seatStatus = false;
+  var seat;
+  List<DropdownMenuItem<String>> get dropdownItem {
+    List<DropdownMenuItem<String>> seatMember = [
+      const DropdownMenuItem(child: Text("1"), value: "1"),
+      const DropdownMenuItem(child: Text("2"), value: "2"),
+      const DropdownMenuItem(child: Text("3"), value: "3"),
+    ];
+    return seatMember;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -324,21 +342,141 @@ class TripTaskPost extends StatelessWidget {
                                     SizedBox(
                                       height: 10.h,
                                     ),
-                                    Container(
-                                      padding: EdgeInsets.only(
-                                          left: 10.w,
-                                          right: 10.w,
-                                          top: 5.h,
-                                          bottom: 5.h),
-                                      decoration: BoxDecoration(
-                                          color: navyBlueColor,
-                                          borderRadius:
-                                              BorderRadius.circular(10.r)),
-                                      child: CustomText(
-                                          "Make offer",
-                                          Colors.white,
-                                          FontWeight.normal,
-                                          13.sp),
+                                    GestureDetector(
+                                      onTap: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) =>
+                                              AlertDialog(
+                                                  title: Text("Make Offers"),
+                                                  content: Container(
+                                                      height: 300.h,
+                                                      decoration:
+                                                          BoxDecoration(),
+                                                      child: Form(
+                                                        key: _formOfferkey,
+                                                        child: Column(
+                                                          children: [
+                                                            Container(
+                                                              child:
+                                                                  CustomTextField(
+                                                                onChange:
+                                                                    (amount) {
+                                                                  amount =
+                                                                      amount;
+                                                                },
+
+//Put in the amount only if you want to negotiate
+                                                                txt: "Amount",
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              height: 10.h,
+                                                            ),
+                                                            Container(
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              height: 35.h,
+                                                              decoration: BoxDecoration(
+                                                                  border: Border.all(
+                                                                      width:
+                                                                          1.w,
+                                                                      color: Colors
+                                                                          .grey),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10.r)),
+                                                              child:
+                                                                  DropdownButton(
+                                                                  isExpanded: true,
+                                                                underline:
+                                                                    SizedBox(),
+                                                                onTap: () {
+                                                                  seatStatus =
+                                                                      true;
+                                                                },
+                                                                hint: seatStatus ==
+                                                                        false
+                                                                    ? Text(
+                                                                        "How Many of you")
+                                                                    : Text(
+                                                                        "${seat}"),
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        14.sp,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .normal,
+                                                                    color: Colors
+                                                                        .black),
+                                                                value:
+                                                                    seatValue,
+                                                                onChanged: (t) {
+                                                                  seat = t!;
+                                                                  print(
+                                                                      "passenger $seat");
+                                                                },
+                                                                items:
+                                                                    dropdownItem,
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              height: 10.h,
+                                                            ),
+                                                            Container(
+                                                              child: TextField(
+                                                                controller:
+                                                                    shortmessage,
+                                                                maxLines: 4,
+                                                                decoration: InputDecoration(
+                                                                    hintText:
+                                                                        "short message (Optional)",
+                                                                    border:
+                                                                        OutlineInputBorder()),
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              height: 20.h,
+                                                            ),
+                                                            CustomButtonOne(
+                                                                title: "Submit",
+                                                                btnColor:
+                                                                    navyBlueColor,
+                                                                onTab: () {
+                                                                  if (_formOfferkey
+                                                                      .currentState!
+                                                                      .validate()) {
+                                                                    print(
+                                                                        "success");
+                                                                  } else {
+                                                                    Get.snackbar(
+                                                                        "",
+                                                                        "Offer not submitted");
+                                                                  }
+                                                                })
+                                                          ],
+                                                        ),
+                                                      ))),
+                                        );
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.only(
+                                            left: 10.w,
+                                            right: 10.w,
+                                            top: 5.h,
+                                            bottom: 5.h),
+                                        decoration: BoxDecoration(
+                                            color: navyBlueColor,
+                                            borderRadius:
+                                                BorderRadius.circular(10.r)),
+                                        child: CustomText(
+                                            "Make offer",
+                                            Colors.white,
+                                            FontWeight.normal,
+                                            13.sp),
+                                      ),
                                     ),
                                     Container(
                                       padding:
