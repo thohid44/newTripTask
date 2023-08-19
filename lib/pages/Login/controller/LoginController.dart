@@ -15,7 +15,7 @@ class LoginController extends GetxController {
   var userClient = http.Client();
   var url = "http://api.tripshiptask.com/api/auth/login";
   login(email, password) async {
-    var mapData = {"email": "waleed.amin08@gmail.com", "password": "123456789"};
+    var mapData = {"email": email, "password": password};
     try {
       isLogLoading(true);
       var response = await http.post(Uri.parse(url), body: mapData);
