@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 import 'map/map_view_page.dart';
 import 'pages/Login/view/login_screen.dart';
+import 'pages/TripPages/views/map_screen.dart';
 import 'pages/TripPages/views/trip_page.dart';
 import 'profile/view/user_deshboard.dart';
 import 'rating/view/rating_page_30.dart';
@@ -45,6 +46,6 @@ class MyApp extends StatelessWidget {
       },
       child: LoginScreen(),
       
-    );
+      );
   }
 }

@@ -137,6 +137,7 @@ class MapSampleState extends State<MapSample> {
           ),
           Expanded(
             child: GoogleMap(
+              
               mapType: MapType.normal,
               markers: _markers,
               polygons: _polygons,
