@@ -238,6 +238,7 @@ class TripTaskPost extends StatelessWidget {
   final _formOfferkey = GlobalKey<FormState>();
   final TextEditingController shortmessage = TextEditingController();
   var amount = '';
+  var tripId;
   var seatValue;
   bool seatStatus = false;
   var seat;
@@ -260,7 +261,7 @@ class TripTaskPost extends StatelessWidget {
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 return ListView.builder(
-                    itemCount: snapshot.data.data.completedTrips.length,
+                    itemCount: snapshot.data.data.postedTrips.length,
                     itemBuilder: (context, index) {
                       var tripData = snapshot.data.data.completedTrips[index];
                       return Card(
@@ -440,16 +441,21 @@ class TripTaskPost extends StatelessWidget {
                                                             SizedBox(
                                                               height: 20.h,
                                                             ),
+
                                                             CustomButtonOne(
                                                                 title: "Submit",
                                                                 btnColor:
                                                                     navyBlueColor,
                                                                 onTab: () {
-                                                                  if (_formOfferkey
+                                                                  print(tripData.id.toString());
+                                                                  print(amount);
+                                                                    print(seat);
+                                                                    print(shortmessage.text.toString());
+                                                                  var _isValid = _formOfferkey
                                                                       .currentState!
-                                                                      .validate()) {
-                                                                    print(
-                                                                        "success");
+                                                                      .validate();
+                                                                  if (_isValid) {
+                                                                controller.bidOnTrip(amount, tripData.id.toString(), seat, shortmessage.text.toString());
                                                                   } else {
                                                                     Get.snackbar(
                                                                         "",

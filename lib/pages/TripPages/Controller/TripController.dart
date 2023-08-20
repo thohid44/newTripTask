@@ -52,7 +52,7 @@ class TripController extends GetxController {
         print(response.statusCode);
         var jsonData = jsonDecode(response.body);
         print(jsonData);
-        Get.snackbar("Get Ride", "Successfully Store", 
+        Get.snackbar("Give Ride", "Successfully Store", 
         backgroundColor: navyBlueColor
         );
       }
@@ -144,4 +144,33 @@ class TripController extends GetxController {
       print("Error $e");
     }
   }
+
+    bidOnTrip(amount, tripId, seat,  message) async {
+    var token = _box.read(LocalStoreKey.token);
+    print(token);
+    var mapData = {
+    "amount": amount.toString(),
+    "vehicle_seat": seat.toString(),
+    "trip_id": tripId.toString(),
+    "message": message
+};
+
+    try {
+      isLoading(true);
+      var response = await ApiService().postData(mapData, "tripbids");
+
+      if (response.statusCode == 201) {
+        print(response.statusCode);
+        var jsonData = jsonDecode(response.body);
+        print(jsonData);
+        Get.snackbar("Trip Offer", "Make Successfully ", 
+        backgroundColor: navyBlueColor
+        );
+      }
+    } catch (e) {
+      print("Error $e");
+    }
+  }
+
+
 }
