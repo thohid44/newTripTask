@@ -1,5 +1,5 @@
 import 'package:bus/pages/TripPages/views/my_trips_offer_page.dart';
-import 'package:bus/profile/view/main_profile_page.dart';
+import 'package:bus/profile/view/all_Trips_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -60,7 +60,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                         ),
                         InkWell(
                           onTap: () {
-                            Get.to(MainProfilePage());
+                            Get.to(AllTripsPage());
                           },
                           child: Container(
                             margin: EdgeInsets.only(left: 40.w),
@@ -132,7 +132,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                         ),
                         InkWell(
                           onTap: () {
-                            Get.to(MainProfilePage());
+                            Get.to(AllTripsPage());
                           },
                           child: Container(
                             margin: EdgeInsets.only(left: 40.w),

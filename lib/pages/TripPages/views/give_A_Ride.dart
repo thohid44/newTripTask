@@ -390,6 +390,7 @@ class _GiveARideState extends State<GiveARide> {
           height: 20.h,
         ),
         ListView.builder(
+          scrollDirection: Axis.vertical,
             shrinkWrap: true,
             itemCount: predictions.length,
             itemBuilder: (context, index) {

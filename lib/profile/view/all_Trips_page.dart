@@ -9,15 +9,15 @@ import 'package:get/get.dart';
 
   
   
-  class MainProfilePage extends StatefulWidget {
+  class AllTripsPage extends StatefulWidget {
     @override
     State<StatefulWidget> createState() {
-      return _MainProfilePageState();
+      return _AllTripsPageState();
     }
   
   }
   
-  class _MainProfilePageState extends State<MainProfilePage> with TickerProviderStateMixin {
+  class _AllTripsPageState extends State<AllTripsPage> with TickerProviderStateMixin {
   
     late TabController _tabController;
   
