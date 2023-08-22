@@ -8,9 +8,11 @@ import 'package:bus/Widget/customButtonOne.dart';
 import 'package:bus/Widget/custom_text_field.dart';
 import 'package:bus/pages/Ship/views/shipPage.dart';
 import 'package:bus/pages/TripPages/Controller/TripController.dart';
+import 'package:bus/pages/TripPages/model/trip_post_details_model.dart';
 import 'package:bus/pages/TripPages/model/trips_search_model.dart';
 import 'package:bus/pages/TripPages/views/map_page.dart';
 import 'package:bus/pages/TripPages/views/please_search.dart';
+import 'package:bus/pages/TripPages/views/trip_post_details_page.dart';
 import 'package:bus/pages/TripPages/views/trip_search_page.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_place/google_place.dart';
@@ -57,17 +59,11 @@ class _GiveARideState extends State<GiveARide> {
   String vehicle = "select";
   bool searchStatus = false;
   var startkm = '';
-
   var deskm = '';
-
   var startRadius = '';
-
   var desRadius = '';
-
   var startPoints = '';
-
   var destionaPoint = '';
-
   var tripContrller = Get.put(TripController());
 
   final _box = GetStorage();
@@ -390,7 +386,7 @@ class _GiveARideState extends State<GiveARide> {
           height: 20.h,
         ),
         ListView.builder(
-          scrollDirection: Axis.vertical,
+            scrollDirection: Axis.vertical,
             shrinkWrap: true,
             itemCount: predictions.length,
             itemBuilder: (context, index) {
@@ -485,10 +481,15 @@ class _GiveARideState extends State<GiveARide> {
                         shrinkWrap: true,
                         itemCount: snapshot.data.data.length,
                         itemBuilder: (context, index) {
+                        
                           return Card(
-                            child: GestureDetector( 
-                              onTap: (){
-                                Get.to(MapPage());
+                            child: GestureDetector(
+                              onTap: () {
+                          
+
+                                Get.to(tripPostDetailsPage(snapshot.data.data[index].path
+                                        .toString()),
+                                 );
                               },
                               child: Container(
                                   margin: EdgeInsets.all(10.h),
@@ -524,7 +525,7 @@ class _GiveARideState extends State<GiveARide> {
                                                   Container(
                                                     width: 150.w,
                                                     child: Text(
-                                                      "${snapshot.data.data[index].startPoint.toString()}",
+                                                      "${snapshot.data.data[index].path.toString()}",
                                                       style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 13.sp),
@@ -533,13 +534,14 @@ class _GiveARideState extends State<GiveARide> {
                                                 ],
                                               ),
                                             ),
-                                            SizedBox(height: 8.h,),
+                                            SizedBox(
+                                              height: 8.h,
+                                            ),
                                             Container(
                                               child: Row(
                                                 children: [
                                                   Container(
                                                     width: 70.w,
-                                              
                                                     child: Text(
                                                       "Destination",
                                                       style: TextStyle(
@@ -550,11 +552,10 @@ class _GiveARideState extends State<GiveARide> {
                                                     ),
                                                   ),
                                                   SizedBox(
-                                                    width: 10.w, 
+                                                    width: 10.w,
                                                   ),
                                                   Container(
                                                     width: 150.w,
-                                                  
                                                     child: Text(
                                                       "${snapshot.data.data[index].destination.toString()}",
                                                       style: TextStyle(
@@ -565,13 +566,14 @@ class _GiveARideState extends State<GiveARide> {
                                                 ],
                                               ),
                                             ),
-                                            SizedBox(height: 8.h,),
-                                                Container(
+                                            SizedBox(
+                                              height: 8.h,
+                                            ),
+                                            Container(
                                               child: Row(
                                                 children: [
                                                   Container(
                                                     width: 70.w,
-                                                  
                                                     child: Text(
                                                       "Vehicle Type",
                                                       style: TextStyle(
@@ -586,7 +588,6 @@ class _GiveARideState extends State<GiveARide> {
                                                   ),
                                                   Container(
                                                     width: 150.w,
-                                                 
                                                     child: Text(
                                                       "${snapshot.data.data[index].vehicleType.toString()}",
                                                       style: TextStyle(
@@ -597,13 +598,14 @@ class _GiveARideState extends State<GiveARide> {
                                                 ],
                                               ),
                                             ),
-                                                   SizedBox(height: 8.h,),
-                                                Container(
+                                            SizedBox(
+                                              height: 8.h,
+                                            ),
+                                            Container(
                                               child: Row(
                                                 children: [
                                                   Container(
                                                     width: 70.w,
-                                                
                                                     child: Text(
                                                       "No. Of Seat",
                                                       style: TextStyle(
@@ -618,7 +620,6 @@ class _GiveARideState extends State<GiveARide> {
                                                   ),
                                                   Container(
                                                     width: 150.w,
-                                                   
                                                     child: Text(
                                                       "${snapshot.data.data[index].vehicleSeat.toString()}",
                                                       style: TextStyle(
@@ -629,13 +630,14 @@ class _GiveARideState extends State<GiveARide> {
                                                 ],
                                               ),
                                             ),
-                                                SizedBox(height: 8.h,),
-                                                Container(
+                                            SizedBox(
+                                              height: 8.h,
+                                            ),
+                                            Container(
                                               child: Row(
                                                 children: [
                                                   Container(
                                                     width: 70.w,
-                                                 
                                                     child: Text(
                                                       "Pay",
                                                       style: TextStyle(
@@ -650,7 +652,6 @@ class _GiveARideState extends State<GiveARide> {
                                                   ),
                                                   Container(
                                                     width: 150.w,
-                                                 
                                                     child: Text(
                                                       "${snapshot.data.data[index].pay.toString()}",
                                                       style: TextStyle(

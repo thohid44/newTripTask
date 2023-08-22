@@ -6,6 +6,7 @@ import 'package:bus/Utils/colors.dart';
 import 'package:bus/Utils/localstorekey.dart';
 import 'package:bus/pages/TripPages/model/my_trip_posts_model.dart';
 import 'package:bus/pages/TripPages/model/my_trips_offer_model.dart';
+import 'package:bus/pages/TripPages/model/trip_post_details_model.dart';
 import 'package:bus/pages/TripPages/model/trips_search_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,6 +18,7 @@ class TripController extends GetxController {
   final _box = GetStorage();
   var isLoading = false.obs;
   List<TripSearchM> tripSearchList = <TripSearchM>[].obs;
+  TripPostDetailsModel? tripPostDetailsModel;
 
   getTripRide(sPoint, des, note, prefered, howmany, currency, vehicled) async {
     var token = _box.read(LocalStoreKey.token);
@@ -52,9 +54,8 @@ class TripController extends GetxController {
         print(response.statusCode);
         var jsonData = jsonDecode(response.body);
         print(jsonData);
-        Get.snackbar("Give Ride", "Successfully Store", 
-        backgroundColor: navyBlueColor
-        );
+        Get.snackbar("Give Ride", "Successfully Store",
+            backgroundColor: navyBlueColor);
       }
     } catch (e) {
       print("Error $e");
@@ -138,22 +139,22 @@ class TripController extends GetxController {
         TripSearchModel data = TripSearchModel.fromJson(jsonData);
         tripSearchList = data.data!;
       }
-       isLoading(false);
+      isLoading(false);
     } catch (e) {
       isLoading(false);
       print("Error $e");
     }
   }
 
-    bidOnTrip(amount, tripId, seat,  message) async {
+  bidOnTrip(amount, tripId, seat, message) async {
     var token = _box.read(LocalStoreKey.token);
     print(token);
     var mapData = {
-    "amount": amount.toString(),
-    "vehicle_seat": seat.toString(),
-    "trip_id": tripId.toString(),
-    "message": message
-};
+      "amount": amount.toString(),
+      "vehicle_seat": seat.toString(),
+      "trip_id": tripId.toString(),
+      "message": message
+    };
 
     try {
       isLoading(true);
@@ -163,14 +164,37 @@ class TripController extends GetxController {
         print(response.statusCode);
         var jsonData = jsonDecode(response.body);
         print(jsonData);
-        Get.snackbar("Trip Offer", "Make Successfully ", 
-        backgroundColor: navyBlueColor
-        );
+        Get.snackbar("Trip Offer", "Make Successfully ",
+            backgroundColor: navyBlueColor);
       }
     } catch (e) {
       print("Error $e");
     }
   }
 
+  var path1 = ''.obs;
+  getTripPostDetails(path) async {
+    var token = _box.read(LocalStoreKey.token);
 
+    try {
+      isLoading(true);
+      var response = await http.get(
+        Uri.parse("http://api.tripshiptask.com/api$path"),
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + token,
+        },
+      );
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(response.body);
+        print(jsonData);
+        tripPostDetailsModel = TripPostDetailsModel.fromJson(jsonData);
+        update();
+      }
+    } catch (e) {
+      print("Error $e");
+      isLoading(false);
+    }
+    update();
+  }
 }
