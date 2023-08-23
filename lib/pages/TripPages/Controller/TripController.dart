@@ -163,7 +163,7 @@ class TripController extends GetxController {
       if (response.statusCode == 201) {
         print(response.statusCode);
         var jsonData = jsonDecode(response.body);
-        print(jsonData);
+        print("offer $jsonData");
         Get.snackbar("Trip Offer", "Make Successfully ",
             backgroundColor: navyBlueColor);
       }
