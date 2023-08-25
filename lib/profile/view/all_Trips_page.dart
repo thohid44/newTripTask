@@ -110,7 +110,7 @@ import 'package:get/get.dart';
                                   children: [
                                     Container(
                                       child: CustomText(
-                                          "Start Point:${snapshot.data.data.completedTrips[index].startPoint}",
+                                          "Start Point:${snapshot.data.data.postedTrips[index].startPoint}",
                                           Colors.black,
                                           FontWeight.normal,
                                           13.sp),
