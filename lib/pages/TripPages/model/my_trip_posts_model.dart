@@ -41,7 +41,7 @@ class MyTrips {
 }
 
 class EdTrip {
-    int? id;
+    var id;
     String? tripId;
     String? postType;
     String? title;
@@ -61,7 +61,7 @@ class EdTrip {
     String? amount;
     Point? point;
     String? details;
-    int? userId;
+    var userId;
     String? user;
     String? path;
 

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:bus/Api_services/base_url.dart';
 import 'package:bus/Utils/localstorekey.dart';
 import 'package:bus/pages/Home/view/home_screen.dart';
 import 'package:get/get.dart';
@@ -18,7 +19,7 @@ class LoginController extends GetxController {
     var mapData = {"email": "waleed.amin08@gmail.com", "password": "123456789"};
     try {
       isLogLoading(true);
-      var response = await http.post(Uri.parse(url), body: mapData);
+      var response = await http.post(Uri.parse("${baseUrl}auth/login"), body: mapData);
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(response.body);
 

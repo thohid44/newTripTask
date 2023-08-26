@@ -525,7 +525,7 @@ class _GiveARideState extends State<GiveARide> {
                                                   Container(
                                                     width: 150.w,
                                                     child: Text(
-                                                      "${snapshot.data.data[index].path.toString()}",
+                                                      "${snapshot.data.data[index].startPoint.toString()}",
                                                       style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 13.sp),
