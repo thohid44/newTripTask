@@ -29,9 +29,9 @@ import 'package:get/get.dart';
     }
   
     static const List<Tab> _tabs = [
-      const Tab( child: const Text('Tab One')),
-      const Tab(text: 'Tab Two'),
-      const Tab(text: 'Tab Three'),
+      const Tab( child: const Text('Posted Trip ')),
+      const Tab(text: 'Seeked Trip'),
+      const Tab(text: 'Completed Trip'),
     
     ];
     var controller = Get.put(TripController());
@@ -49,27 +49,7 @@ import 'package:get/get.dart';
                 labelColor: Colors.white,
                 unselectedLabelColor: Colors.grey,
                 labelStyle: const TextStyle(fontWeight: FontWeight.bold),
-                // unselectedLabelStyle: const TextStyle(fontStyle: FontStyle.italic),
-                // overlayColor: MaterialStateColor.resolveWith((Set<MaterialState> states) {
-                //   if (states.contains(MaterialState.pressed)) {
-                //     return Colors.blue;
-                //   } if (states.contains(MaterialState.focused)) {
-                //     return Colors.orange;
-                //   } else if (states.contains(MaterialState.hovered)) {
-                //     return Colors.pinkAccent;
-                //   }
-  
-                //   return Colors.transparent;
-                // }),
-                // indicatorWeight: 10,
-                // indicatorColor: Colors.red,
-                // indicatorSize: TabBarIndicatorSize.tab,
-                // indicatorPadding: const EdgeInsets.all(5),
-                // indicator: BoxDecoration(
-                //   border: Border.all(color: Colors.red),
-                //   borderRadius: BorderRadius.circular(10),
-                //   color: Colors.pinkAccent,
-                // ),
+             
                 isScrollable: true,
                 physics: BouncingScrollPhysics(),
                 onTap: (int index) {
@@ -95,6 +75,7 @@ import 'package:get/get.dart';
                 return ListView.builder(
                     itemCount: snapshot.data.data.postedTrips.length,
                     itemBuilder: (context, index) {
+                    print("length ${snapshot.data.data.postedTrips.length}");
                       var tripData = snapshot.data.data.postedTrips[index];
                       return Card(
                         child: Container(
