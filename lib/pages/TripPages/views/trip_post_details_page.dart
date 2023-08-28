@@ -48,7 +48,7 @@ class _tripPostDetailsPageState extends State<tripPostDetailsPage> {
 
     try {
       var response = await http.get(
-        Uri.parse("http://api.tripshiptask.com/api${widget.path}"),
+        Uri.parse("${urlWithOutslash}${widget.path}"),
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer ' + token,

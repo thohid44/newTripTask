@@ -68,7 +68,7 @@ class TripController extends GetxController {
     try {
       isLoading(true);
       var response = await http.get(
-        Uri.parse("http://api.tripshiptask.com/api/mytrip"),
+        Uri.parse("${baseUrl}mytrip"),
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer ' + token,
@@ -92,7 +92,7 @@ class TripController extends GetxController {
     try {
       isLoading(true);
       var response = await http.get(
-        Uri.parse("http://api.tripshiptask.com/api/my-trip-offers"),
+        Uri.parse("${baseUrl}my-trip-offers"),
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer ' + token,
@@ -179,7 +179,7 @@ class TripController extends GetxController {
     try {
       isLoading(true);
       var response = await http.get(
-        Uri.parse("http://api.tripshiptask.com/api$path"),
+        Uri.parse("${urlWithOutslash}$path"),
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer ' + token,

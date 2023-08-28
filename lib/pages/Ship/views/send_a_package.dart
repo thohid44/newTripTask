@@ -1,5 +1,3 @@
-
-
 import 'package:bus/Utils/colors.dart';
 import 'package:bus/Widget/customButtonOne.dart';
 import 'package:bus/pages/Ship/controller/send_package_controller.dart';
@@ -10,7 +8,6 @@ import 'package:intl/intl.dart';
 
 import '../../TripPages/views/trip_page.dart';
 
-
 class SendAPackage extends StatefulWidget {
   @override
   State<SendAPackage> createState() => _SendAPackageState();
@@ -19,15 +16,12 @@ class SendAPackage extends StatefulWidget {
 class _SendAPackageState extends State<SendAPackage> {
   final TextEditingController search = TextEditingController();
 
-
-
   String deliveryTime = "Perferred delivery time";
 
   List<DropdownMenuItem<String>> get typeOfGoods {
     List<DropdownMenuItem<String>> destination = [
       const DropdownMenuItem(
-          child: Text("Type of goods"),
-          value: "Type of goods"),
+          child: Text("Type of goods"), value: "Type of goods"),
       const DropdownMenuItem(child: Text("1"), value: "1"),
     ];
     return destination;
@@ -35,12 +29,10 @@ class _SendAPackageState extends State<SendAPackage> {
 
   String typeGood = "Type of goods";
 
-   List<DropdownMenuItem<String>> get packageTypes {
+  List<DropdownMenuItem<String>> get packageTypes {
     List<DropdownMenuItem<String>> destination = [
       const DropdownMenuItem(
-          child: Text("Packaging type"),
-          value: "Packaging type"),
-      
+          child: Text("Packaging type"), value: "Packaging type"),
     ];
     return destination;
   }
@@ -49,10 +41,7 @@ class _SendAPackageState extends State<SendAPackage> {
 
   List<DropdownMenuItem<String>> get weightOfPackages {
     List<DropdownMenuItem<String>> destination = [
-      const DropdownMenuItem(
-          child: Text("KG"),
-          value: "KG"),
-      
+      const DropdownMenuItem(child: Text("KG"), value: "KG"),
     ];
     return destination;
   }
@@ -69,18 +58,17 @@ class _SendAPackageState extends State<SendAPackage> {
 
   String willing = "USD";
 
-final TextEditingController pickup = TextEditingController(); 
+  final TextEditingController pickup = TextEditingController();
 
-final TextEditingController pickDate= TextEditingController(); 
+  final TextEditingController pickDate = TextEditingController();
 
-final TextEditingController deliveryDate = TextEditingController();
+  final TextEditingController deliveryDate = TextEditingController();
 
-
-final TextEditingController dropOff= TextEditingController(); 
-final TextEditingController sendItem =TextEditingController(); 
-final TextEditingController approxValue= TextEditingController(); 
-final TextEditingController note= TextEditingController(); 
-var controller = Get.put(SendPackageController() ); 
+  final TextEditingController dropOff = TextEditingController();
+  final TextEditingController sendItem = TextEditingController();
+  final TextEditingController approxValue = TextEditingController();
+  final TextEditingController note = TextEditingController();
+  var controller = Get.put(SendPackageController());
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -92,7 +80,6 @@ var controller = Get.put(SendPackageController() );
             width: 320.w,
             height: 35.h,
             child: CustomForm(
-            
               hinttext: "Pick Up",
               radius: 5.r,
               textController: pickup,
@@ -105,13 +92,17 @@ var controller = Get.put(SendPackageController() );
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-                 Container(width: 160.w, height: 45.h, child: _buildDatePicker()),
-           
-                  InkWell(
-                    onTap: _showTimePicker,
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: 160.w, height: 45.h, child:pickupTime !=null?Text(pickupTime!.format(context).toString()): Text("Select Time"),)),
+              Container(width: 160.w, height: 45.h, child: _buildDatePicker()),
+              InkWell(
+                  onTap: _showTimePicker,
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: 160.w,
+                    height: 45.h,
+                    child: pickupTime != null
+                        ? Text(pickupTime!.format(context).toString())
+                        : Text("Select Time"),
+                  )),
             ],
           ),
         ),
@@ -144,32 +135,35 @@ var controller = Get.put(SendPackageController() );
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                alignment: Alignment.center,
-                height: 35.h,
-                width: 155.w,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1.w, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10.r)),
-                child:  _buildPreperDeliveryDatePicker()
-              ),
-              SizedBox(
-                width: 5.w,
-              ),
-              InkWell(
-                onTap: _deliveryTimePicker,
-                child: Container(
                   alignment: Alignment.center,
                   height: 35.h,
                   width: 155.w,
                   decoration: BoxDecoration(
                       border: Border.all(width: 1.w, color: Colors.grey),
                       borderRadius: BorderRadius.circular(10.r)),
-                  // ignore: unnecessary_null_comparison
-                  child: delivaryTime !=null ? Text(delivaryTime!.format(context).toString()):  Text("Perferred delivery time" ,style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),)
-                ),
+                  child: _buildPreperDeliveryDatePicker()),
+              SizedBox(
+                width: 5.w,
+              ),
+              InkWell(
+                onTap: _deliveryTimePicker,
+                child: Container(
+                    alignment: Alignment.center,
+                    height: 35.h,
+                    width: 155.w,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 1.w, color: Colors.grey),
+                        borderRadius: BorderRadius.circular(10.r)),
+                    // ignore: unnecessary_null_comparison
+                    child: delivaryTime != null
+                        ? Text(delivaryTime!.format(context).toString())
+                        : Text(
+                            "Perferred delivery time",
+                            style: TextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          )),
               ),
             ],
           ),
@@ -182,7 +176,6 @@ var controller = Get.put(SendPackageController() );
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-           
               SizedBox(
                 width: 5.w,
               ),
@@ -216,26 +209,26 @@ var controller = Get.put(SendPackageController() );
                         color: Colors.black),
                     value: willing,
                     onChanged: (value) {
-                      willing = value!; 
+                      willing = value!;
                       print(willing);
                     },
                     items: willingPay,
                   ),
                 ),
               ),
-                Container(
-            width: 150.w,
-            height: 35.h,
-            alignment: Alignment.center,
-            child: CustomForm(
-              hinttext: "What are you sending? ",
-              radius: 5.r,
-              textController: sendItem,
-            )),
+              Container(
+                  width: 150.w,
+                  height: 35.h,
+                  alignment: Alignment.center,
+                  child: CustomForm(
+                    hinttext: "What are you sending? ",
+                    radius: 5.r,
+                    textController: sendItem,
+                  )),
             ],
           ),
         ),
-         SizedBox(
+        SizedBox(
           height: 5.h,
         ),
         Container(
@@ -267,19 +260,18 @@ var controller = Get.put(SendPackageController() );
                 width: 5.w,
               ),
               Container(
-            width: 150.w,
-            height: 35.h,
-            alignment: Alignment.center,
-            child: CustomForm(
-              hinttext: "Approx value of the goods? ",
-              radius: 5.r,
-              textController: search,
-            )),
+                  width: 150.w,
+                  height: 35.h,
+                  alignment: Alignment.center,
+                  child: CustomForm(
+                    hinttext: "Approx value of the goods? ",
+                    radius: 5.r,
+                    textController: search,
+                  )),
             ],
           ),
         ),
-       
-          SizedBox(
+        SizedBox(
           height: 5.h,
         ),
         Container(
@@ -287,8 +279,7 @@ var controller = Get.put(SendPackageController() );
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-           
-                 Container(
+              Container(
                 alignment: Alignment.center,
                 height: 35.h,
                 width: 140.w,
@@ -303,8 +294,8 @@ var controller = Get.put(SendPackageController() );
                       color: Colors.black),
                   value: packageType,
                   onChanged: (value) {
-                    packageType=value!; 
-                    print(packageType); 
+                    packageType = value!;
+                    print(packageType);
                   },
                   items: packageTypes,
                 ),
@@ -341,14 +332,13 @@ var controller = Get.put(SendPackageController() );
                         color: Colors.black),
                     value: weightOfPackage,
                     onChanged: (value) {
-                      weightOfPackage = value!; 
+                      weightOfPackage = value!;
                       print(weightOfPackage);
                     },
                     items: weightOfPackages,
                   ),
                 ),
               ),
-                
             ],
           ),
         ),
@@ -369,11 +359,20 @@ var controller = Get.put(SendPackageController() );
         CustomButtonOne(
           title: "Sumbit",
           onTab: () {
-
-controller.sendPackage(pickup.text.toString() , pickDate.toString(),'5' ,deliveryDate.text.toString(), '10', dropOff.text.toString(), willing.toString(), sendItem.text.toString(),
-  typeGood.toString(), approxValue.text.toString(), packageType, weightOfPackage.toString(), note.text.toString());
-
-
+            controller.sendPackage(
+                pickup.text.toString(),
+                pickDate.toString(),
+                '5',
+                deliveryDate.text.toString(),
+                '10',
+                dropOff.text.toString(),
+                willing.toString(),
+                sendItem.text.toString(),
+                typeGood.toString(),
+                approxValue.text.toString(),
+                packageType,
+                weightOfPackage.toString(),
+                note.text.toString());
           },
           height: 40.h,
           width: 150.w,
@@ -384,10 +383,7 @@ controller.sendPackage(pickup.text.toString() , pickDate.toString(),'5' ,deliver
     );
   }
 
-   
-
   DateTime selectedDate = DateTime.now();
-
 
   late String date;
 
@@ -398,9 +394,9 @@ controller.sendPackage(pickup.text.toString() , pickDate.toString(),'5' ,deliver
         controller: pickDate,
         readOnly: true,
         textAlign: TextAlign.center,
-        decoration:  InputDecoration(
+        decoration: InputDecoration(
           contentPadding: EdgeInsets.all(8.0),
-          suffixIcon:const Icon(
+          suffixIcon: const Icon(
             Icons.date_range,
             color: Colors.black,
           ),
@@ -420,21 +416,21 @@ controller.sendPackage(pickup.text.toString() , pickDate.toString(),'5' ,deliver
           if (pickedDate != null && pickedDate != selectedDate) {
             setState(() {
               selectedDate = pickedDate;
-              pickDate.text =
-                  DateFormat('yyyy-MM-dd').format(selectedDate);
+              pickDate.text = DateFormat('yyyy-MM-dd').format(selectedDate);
               print("thohid ${pickDate.text}");
             });
           }
         });
   }
-Widget _buildPreperDeliveryDatePicker() {
+
+  Widget _buildPreperDeliveryDatePicker() {
     return TextFormField(
         controller: deliveryDate,
         readOnly: true,
         textAlign: TextAlign.center,
-        decoration:  InputDecoration(
+        decoration: InputDecoration(
           contentPadding: EdgeInsets.all(8.0),
-          suffixIcon:const Icon(
+          suffixIcon: const Icon(
             Icons.date_range,
             color: Colors.black,
           ),
@@ -453,14 +449,13 @@ Widget _buildPreperDeliveryDatePicker() {
               allowedDays: _allowedDays);
           if (pickedDate != null && pickedDate != selectedDate) {
             setState(() {
-            
-             deliveryDate.text =
-                  DateFormat('yyyy-MM-dd').format(pickedDate);
+              deliveryDate.text = DateFormat('yyyy-MM-dd').format(pickedDate);
               print("thohid ${deliveryDate.text}");
             });
           }
         });
   }
+
   bool _allowedDays(DateTime day) {
     if ((day.isBefore(DateTime.now()))) {
       return true;
@@ -492,9 +487,10 @@ Widget _buildPreperDeliveryDatePicker() {
     return selected;
   }
 
- var pickupTime;
-  void _showTimePicker() async{
-    showTimePicker(context: context, initialTime: TimeOfDay.now()).then((value) {
+  var pickupTime;
+  void _showTimePicker() async {
+    showTimePicker(context: context, initialTime: TimeOfDay.now())
+        .then((value) {
       setState(() {
         print(value);
         pickupTime = value;
@@ -502,13 +498,14 @@ Widget _buildPreperDeliveryDatePicker() {
       });
     });
   }
-    TimeOfDay? delivaryTime;
-  void _deliveryTimePicker() async{
-    showTimePicker(context: context, initialTime: TimeOfDay.now()).then((value) {
+
+  TimeOfDay? delivaryTime;
+  void _deliveryTimePicker() async {
+    showTimePicker(context: context, initialTime: TimeOfDay.now())
+        .then((value) {
       setState(() {
         delivaryTime = value!;
       });
     });
   }
-    
 }

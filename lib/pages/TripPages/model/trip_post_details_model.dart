@@ -18,17 +18,17 @@ class TripPostDetailsModel {
 
 class Data {
   String? title;
-  int? id;
+  var id;
   String? tripId;
   String? postType;
-  int? archived;
+  var archived;
   String? status;
   String? slug;
   String? path;
-  int? userId;
+  var userId;
   String? country;
   String? currency;
-  int? tripPosterRating;
+  var tripPosterRating;
   List<dynamic>? tripPosterFeedback;
   String? tripOwnerPhoto;
   String? vehicleType;
@@ -44,14 +44,13 @@ class Data {
   String? vehicleSeat;
   String? preferredPassenger;
   List<Bid>? bids;
-  int? bidsCount;
-  Point? point;
-  Userinfo? userinfo;
+  var bidsCount;
+
   String? pay;
   dynamic? details;
   String? user;
   dynamic? facebook;
-  int? totalTrip;
+  var totalTrip;
   DateTime? createdAt;
   String? userCreated;
 
@@ -84,8 +83,7 @@ class Data {
     this.preferredPassenger,
     this.bids,
     this.bidsCount,
-    this.point,
-    this.userinfo,
+
     this.pay,
     this.details,
     this.user,
@@ -96,82 +94,81 @@ class Data {
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        title: json["title"],
-        id: json["id"],
-        tripId: json["trip_id"],
-        postType: json["post_type"],
-        archived: json["archived"],
-        status: json["status"],
-        slug: json["slug"],
-        path: json["path"],
-        userId: json["user_id"],
-        country: json["country"],
-        currency: json["currency"],
-        tripPosterRating: json["trip_poster_rating"],
+        title: json["title"].toString(),
+        id: json["id"].toString(),
+        tripId: json["trip_id"].toString(),
+        postType: json["post_type"].toString(),
+        archived: json["archived"].toString(),
+        status: json["status"].toString(),
+        slug: json["slug"].toString(),
+        path: json["path"].toString(),
+        userId: json["user_id"].toString(),
+        country: json["country"].toString(),
+        currency: json["currency"].toString(),
+        tripPosterRating: json["trip_poster_rating"].toString(),
         tripPosterFeedback:
             List<dynamic>.from(json["trip_poster_feedback"].map((x) => x)),
-        tripOwnerPhoto: json["trip_owner_photo"],
-        vehicleType: json["vehicle_type"],
-        vehicleName: json["vehicle_name"],
-        startPoint: json["start_point"],
-        distance: json["distance"],
-        duration: json["duration"],
-        via: json["via"],
+        tripOwnerPhoto: json["trip_owner_photo"].toString(),
+        vehicleType: json["vehicle_type"].toString(),
+        vehicleName: json["vehicle_name"].toString(),
+        startPoint: json["start_point"].toString(),
+        distance: json["distance"].toString(),
+        duration: json["duration"].toString(),
+        via: json["via"].toString(),
         date: DateTime.parse(json["date"]),
-        time: json["time"],
-        seatsAvailable: json["seats_available"],
-        destination: json["destination"],
-        vehicleSeat: json["vehicle_seat"],
-        preferredPassenger: json["preferred_passenger"],
+        time: json["time"].toString(),
+        seatsAvailable: json["seats_available"].toString(),
+        destination: json["destination"].toString(),
+        vehicleSeat: json["vehicle_seat"].toString(),
+        preferredPassenger: json["preferred_passenger"].toString(),
         bids: List<Bid>.from(json["bids"].map((x) => Bid.fromJson(x))),
-        bidsCount: json["bids_count"],
-        point: Point.fromJson(json["point"]),
-        userinfo: Userinfo.fromJson(json["userinfo"]),
-        pay: json["pay"],
-        details: json["details"],
-        user: json["user"],
-        facebook: json["facebook"],
-        totalTrip: json["total_trip"],
+        bidsCount: json["bids_count"].toString(),
+ 
+        pay: json["pay"].toString(),
+        details: json["details"].toString(),
+        user: json["user"].toString(),
+        facebook: json["facebook"].toString().toString(),
+        totalTrip: json["total_trip"].toString(),
         createdAt: DateTime.parse(json["created_at"]),
-        userCreated: json["user_created"],
+        userCreated: json["user_created"].toString(),
       );
 }
 
 class Bid {
-  int? id;
-  int? userId;
-  int? tripId;
-  String? title;
-  String? tripUsername;
+  var id;
+  var userId;
+  var tripId;
+  var title;
+  var tripUsername;
   dynamic completedRating;
-  String? postedRating;
-  int? amount;
-  int? tripOwner;
+  var postedRating;
+  var amount;
+  var tripOwner;
   dynamic? vehicleType;
-  String? coverLetter;
-  String? bidderName;
-  String? bidderNumber;
-  String? bidderEmail;
+  var coverLetter;
+  var bidderName;
+  var bidderNumber;
+  var bidderEmail;
   dynamic? bidderLocation;
-  String? bidderEducation;
-  String? bidderProfession;
+  var bidderEducation;
+  var bidderProfession;
   DateTime? bidderDob;
-  String? bidderSex;
+  var bidderSex;
   dynamic co;
-  int? passenger;
-  int? posted;
-  int? completed;
-  int? agree;
-  int? complete;
-  int? accepted;
-  int? paid;
+  var passenger;
+  var posted;
+  var completed;
+  var agree;
+  var complete;
+  var accepted;
+  var paid;
   dynamic? paymentMethod;
-  int? feedbackGiven;
-  int? feedbackGot;
+  var feedbackGiven;
+  var feedbackGot;
   String? photo;
   List<dynamic>? tripPostedFeedback;
   List<dynamic>? tripCompletedFeedback;
-  int? passengerAccepted;
+  var passengerAccepted;
 
   Bid({
     this.id,
@@ -250,57 +247,4 @@ class Bid {
       );
 }
 
-class Point {
-  String? sLat;
-  String? sLng;
-  String? dLat;
-  String? dLng;
 
-  Point({
-    this.sLat,
-    this.sLng,
-    this.dLat,
-    this.dLng,
-  });
-
-  factory Point.fromJson(Map<String, dynamic> json) => Point(
-        sLat: json["s_lat"],
-        sLng: json["s_lng"],
-        dLat: json["d_lat"],
-        dLng: json["d_lng"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "s_lat": sLat,
-        "s_lng": sLng,
-        "d_lat": dLat,
-        "d_lng": dLng,
-      };
-}
-
-class Userinfo {
-  String? name;
-  String? created;
-  String? education;
-  String? profession;
-  DateTime? dob;
-  String? gender;
-
-  Userinfo({
-    this.name,
-    this.created,
-    this.education,
-    this.profession,
-    this.dob,
-    this.gender,
-  });
-
-  factory Userinfo.fromJson(Map<String, dynamic> json) => Userinfo(
-        name: json["name"],
-        created: json["created"],
-        education: json["education"],
-        profession: json["profession"],
-        dob: DateTime.parse(json["dob"]),
-        gender: json["gender"],
-      );
-}
