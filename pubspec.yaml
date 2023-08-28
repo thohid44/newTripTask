@@ -5,13 +5,13 @@ description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 
-# v2,3 to v4 25-6-2023 
+
 version: 1.0.0+1
     
 environment: 
   sdk: '>=2.18.5 <3.0.0' 
  
-
+ 
 dependencies:
   flutter:
     sdk: flutter
@@ -36,7 +36,7 @@ dependencies:
   google_fonts: ^4.0.4
   webview_flutter: ^4.2.0
   flutter_launcher_icons:  
-  google_place: 
+  google_place:  
   google_maps_flutter: ^2.3.0
   location: ^4.4.0
   flutter_polyline_points: ^1.0.0

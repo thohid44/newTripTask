@@ -1,8 +1,7 @@
 import 'package:bus/Email_Verify/view/email_verification_optional_information.dart';
 import 'package:bus/Utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
