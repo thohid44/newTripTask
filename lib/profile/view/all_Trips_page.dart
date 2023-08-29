@@ -1,6 +1,7 @@
 import 'package:bus/Utils/colors.dart';
 import 'package:bus/Widget/customText.dart';
 import 'package:bus/pages/TripPages/Controller/TripController.dart';
+import 'package:bus/profile/view/my_posted_trip_details.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -75,134 +76,140 @@ class _AllTripsPageState extends State<AllTripsPage>
                                 snapshot.data.data.postedTrips[index];
 
                             return Card(
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10.w, vertical: 10.h),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      width: 190.w,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            child: CustomText(
-                                                "Start Point:${snapshot.data.data.postedTrips[index].startPoint}",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                          Container(
-                                            child: CustomText(
-                                                "Destination: ${tripData.destination}",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                          Container(
-                                            child: CustomText(
-                                                "Offers: ${tripData.postType}",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                          Container(
-                                            child: CustomText(
-                                                "Posted by:  ${tripData.via}",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                          Container(
-                                            child: CustomText(
-                                                "Male/25/Bachelor Degree or equivalent/Private job",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                          Container(
-                                            child: CustomText(
-                                                "Vehicle:  ${tripData.vehicleType}",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                        ],
+                              child: GestureDetector(
+                                onTap: () {
+                                  var path = snapshot
+                                      .data.data.postedTrips[index].path;
+                                  Get.to(MyPostedTripDetails(path));
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10.w, vertical: 10.h),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        width: 190.w,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              child: CustomText(
+                                                  "Start Point:${snapshot.data.data.postedTrips[index].startPoint}",
+                                                  Colors.black,
+                                                  FontWeight.normal,
+                                                  13.sp),
+                                            ),
+                                            Container(
+                                              child: CustomText(
+                                                  "Destination: ${tripData.destination}",
+                                                  Colors.black,
+                                                  FontWeight.normal,
+                                                  13.sp),
+                                            ),
+                                            Container(
+                                              child: CustomText(
+                                                  "Offers: ${tripData.postType}",
+                                                  Colors.black,
+                                                  FontWeight.normal,
+                                                  13.sp),
+                                            ),
+                                            Container(
+                                              child: CustomText(
+                                                  "Posted by:  ${tripData.via}",
+                                                  Colors.black,
+                                                  FontWeight.normal,
+                                                  13.sp),
+                                            ),
+                                            Container(
+                                              child: CustomText(
+                                                  "Male/25/Bachelor Degree or equivalent/Private job",
+                                                  Colors.black,
+                                                  FontWeight.normal,
+                                                  13.sp),
+                                            ),
+                                            Container(
+                                              child: CustomText(
+                                                  "Vehicle:  ${tripData.vehicleType}",
+                                                  Colors.black,
+                                                  FontWeight.normal,
+                                                  13.sp),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    Container(
-                                      width: 120.w,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          Container(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 10.h),
-                                            child: CustomText(
-                                                "Amount \$${tripData.amount}",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                          Container(
-                                            child: CustomText(
-                                                "Details",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                          SizedBox(
-                                            height: 10.h,
-                                          ),
-                                          Container(
-                                            padding: EdgeInsets.only(
-                                                left: 10.w,
-                                                right: 10.w,
-                                                top: 5.h,
-                                                bottom: 5.h),
-                                            decoration: BoxDecoration(
-                                                color: navyBlueColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        10.r)),
-                                            child: CustomText(
-                                                "Make offer",
-                                                Colors.white,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                          Container(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 10.h),
-                                            child: CustomText(
-                                                "Passenger:2  ${tripData.vehicleSeat}",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
+                                      Container(
+                                        width: 120.w,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 10.h),
+                                              child: CustomText(
+                                                  "Amount \$${tripData.amount}",
+                                                  Colors.black,
+                                                  FontWeight.normal,
+                                                  13.sp),
+                                            ),
+                                            Container(
+                                              child: CustomText(
+                                                  "Details",
+                                                  Colors.black,
+                                                  FontWeight.normal,
+                                                  13.sp),
+                                            ),
+                                            SizedBox(
+                                              height: 10.h,
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.only(
+                                                  left: 10.w,
+                                                  right: 10.w,
+                                                  top: 5.h,
+                                                  bottom: 5.h),
+                                              decoration: BoxDecoration(
+                                                  color: navyBlueColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.r)),
+                                              child: CustomText(
+                                                  "Make offer",
+                                                  Colors.white,
+                                                  FontWeight.normal,
+                                                  13.sp),
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 10.h),
+                                              child: CustomText(
+                                                  "Passenger:2  ${tripData.vehicleSeat}",
+                                                  Colors.black,
+                                                  FontWeight.normal,
+                                                  13.sp),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             );
                           });
                     }
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                        child: CircularProgressIndicator(
-                      color: navyBlueColor,
-                    ));
+                      return const Center(
+                          child: CircularProgressIndicator(
+                        color: navyBlueColor,
+                      ));
                     }
-                    return const Center(
-                        child: Text("data"));
+                    return const Center(child: Text("data"));
                   }),
               FutureBuilder(
                   future: controller.getMyTrips(),

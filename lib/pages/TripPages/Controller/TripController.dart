@@ -146,6 +146,8 @@ class TripController extends GetxController {
     }
   }
 
+
+
   bidOnTrip(amount, tripId, seat, message) async {
     var token = _box.read(LocalStoreKey.token);
     print(token);
@@ -172,6 +174,91 @@ class TripController extends GetxController {
     }
   }
 
+  acceptTrip(bidId, sum) async {
+    var token = _box.read(LocalStoreKey.token);
+    print(token);
+    var mapData = {"accepted": "1", "totalpassenger": "4"};
+    try {
+      isLoading(true);
+      //  var response = await ApiService().postData(mapData, "tripbids/$bidId");
+      var response = await http.patch(Uri.parse("${baseUrl}tripbids/$bidId"),
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token,
+          },
+          body: mapData);
+
+      if (response.statusCode == 201) {
+        print(response.statusCode);
+        var jsonData = jsonDecode(response.body);
+        print("offer $jsonData");
+        Get.snackbar("Trip Offer", "Make Successfully ",
+            backgroundColor: navyBlueColor);
+      }
+    } catch (e) {
+      print("Error $e");
+    }
+  }
+
+  counterTripOffer(bidId, amount) async {
+    var token = _box.read(LocalStoreKey.token);
+
+    var mapData = {"amount": amount};
+
+    try {
+      isLoading(true);
+      //  var response = await ApiService().postData(mapData, "tripbids/$bidId");
+      var response = await http.patch(Uri.parse("${baseUrl}tripbids/$bidId"),
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token,
+          },
+          body: mapData);
+
+      print(response.statusCode);
+
+      // if (response.statusCode == 200) {
+      //   print(response.statusCode);
+      //   var jsonData = jsonDecode(response.body);
+      //   print("counter offer $jsonData");
+      //   Get.snackbar("Trip Offer", "Make Successfully ",
+      //       backgroundColor: navyBlueColor);
+      // }
+    } catch (e) {
+      print("Error $e");
+    }
+  }
+
+ tripAgree(bidId) async {
+    var token = _box.read(LocalStoreKey.token);
+
+    var mapData =   {
+    "agree": '1'
+};
+
+    try {
+      isLoading(true);
+      //  var response = await ApiService().postData(mapData, "tripbids/$bidId");
+      var response = await http.patch(Uri.parse("${baseUrl}tripbids/$bidId"),
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token,
+          },
+          body: mapData);
+
+      print(response.statusCode);
+
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+        var jsonData = jsonDecode(response.body);
+        print("counter offer $jsonData");
+        Get.snackbar("Trip Offer", "Make Successfully ",
+            backgroundColor: navyBlueColor);
+      }
+    } catch (e) {
+      print("Error $e");
+    }
+  }
   var path1 = ''.obs;
   getTripPostDetails(path) async {
     var token = _box.read(LocalStoreKey.token);

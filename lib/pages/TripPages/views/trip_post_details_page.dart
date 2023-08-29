@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:bus/Api_services/base_url.dart';
@@ -66,8 +67,15 @@ class _tripPostDetailsPageState extends State<tripPostDetailsPage> {
     }
   }
 
+  bool status = false;
+
   void initState() {
     getTripPostDetails();
+    Timer(Duration(seconds: 2), () {
+      setState(() {
+        status = true;
+      });
+    });
     super.initState();
   }
 
@@ -79,7 +87,7 @@ class _tripPostDetailsPageState extends State<tripPostDetailsPage> {
     // var details = controller.tripPostDetailsModel!.data!;
     return Scaffold(
       appBar: AppBar(),
-      body: FutureBuilder(
+      body: status == true?FutureBuilder(
           future: getTripPostDetails(),
           builder: (context, AsyncSnapshot snapshot) {
             print(snapshot.data);
@@ -120,20 +128,20 @@ class _tripPostDetailsPageState extends State<tripPostDetailsPage> {
                     ),
                   ],
                 ),
-              //   TripDetailsWidget(
-              //       title: "Destination", value: details.destination),
-              //   TripDetailsWidget(
-              //       title: "Passenger",
-              //       value: details.bids![0].passenger.toString()),
-              //   TripDetailsWidget(title: "Pay", value: details.pay),
-              //   TripDetailsWidget(
-              //       title: "Bid Amount",
-              //       value: details.bids![0].amount.toString()),
-              //   TripDetailsWidget(
-              //       title: "Agree", value: details.bids![0].agree.toString())
-       ],
+                TripDetailsWidget(
+                    title: "Destination", value: details.destination),
+                TripDetailsWidget(
+                    title: "Passenger",
+                    value: details.bids![0].passenger.toString()),
+                TripDetailsWidget(title: "Pay", value: details.pay),
+                TripDetailsWidget(
+                    title: "Bid Amount",
+                    value: details.bids![0].amount.toString()),
+                TripDetailsWidget(
+                    title: "Agree", value: details.bids![0].agree.toString())
+              ],
             );
-          }),
+          }):Center(child: CircularProgressIndicator(),),
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             showDialog(

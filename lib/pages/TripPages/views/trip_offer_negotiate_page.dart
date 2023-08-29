@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:bus/Api_services/base_url.dart';
@@ -67,9 +68,14 @@ class _TripOfferNegotiatePageState extends State<TripOfferNegotiatePage> {
     }
   }
 
+  bool status = false;
   void initState() {
     getTripPostDetails();
-
+    Timer(Duration(seconds: 2), () {
+      setState(() {
+        status = true;
+      });
+    });
     super.initState();
   }
 
@@ -81,126 +87,135 @@ class _TripOfferNegotiatePageState extends State<TripOfferNegotiatePage> {
     print("koli ${widget.path}");
     return Scaffold(
       appBar: customAppBar(),
-      body: FutureBuilder(
-          future: getTripPostDetails(),
-          builder: (context, AsyncSnapshot snapshot) {
-         var details =  tripPostDetailsModel!.data!;
-        //  var details = snapshot.data.data;
-            if (details ==0) {
-              return Center(child: CircularProgressIndicator());
-            }
-            return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-              child: ListView(
-                children: [
-                  TripDetailsWidget(
-                    title: "Title",
-                    value: details.title,
-                    status: false,
-                  ),
-                  TripDetailsWidget(
-                    title: "Posted By",
-                    value: details.user,
-                    status: false,
-                  ),
-                  TripDetailsWidget(
-                    title: "Post Type",
-                    value: details.postType,
-                    status: false,
-                  ),
-                  TripDetailsWidget(
-                      title: "Start Point",
-                      value: details.startPoint,
-                      status: false),
-                  TripDetailsWidget(
-                    title: "Destination",
-                    value: details.destination,
-                    status: false,
-                  ),
-                  TripDetailsWidget(
-                    title: "Passenger",
-                    value: details.bids![0].passenger.toString(),
-                    status: false,
-                  ),
-                  TripDetailsWidget(
-                    title: "Preferred Passenger",
-                    value: " ${details.preferredPassenger} ",
-                    status: false,
-                  ),
-                  TripDetailsWidget(
-                    title: "Vehicle Type",
-                    value: " ${details.pay} ${details.currency.toString()} ",
-                    status: false,
-                  ),
-                  TripDetailsWidget(
-                    title: "Duration",
-                    value: " ${details.duration} ",
-                    status: false,
-                  ),
-                  TripDetailsWidget(
-                    title: "Distance",
-                    value: " ${details.distance}  ",
-                    status: false,
-                  ),
-                  TripDetailsWidget(
-                    title: "Pay",
-                    value: " ${details.pay} ${details.currency.toString()} ",
-                    status: false,
-                  ),
-                  TripDetailsWidget(
-                    title: "Bid Amount",
-                    value:
-                        "${details.bids![0].amount.toString()} ${details.currency.toString()} ",
-                    status: false,
-                  ),
-                  TripDetailsWidget(
-                    title: "Negotiate Amount",
-                    value:
-                        "${details.bids![0].co.toString()} ${details.currency.toString()} ",
-                    status: false,
-                  ),
-                  TripDetailsWidget(
-                    title: "Agree",
-                    value: details.bids![0].agree.toString(),
-                    status: true,
-                  ),
-                  TripDetailsWidget(
-                    title: "Number Of Bid",
-                    value: details.bidsCount.toString(),
-                    status: false,
-                  ),
-                  TripDetailsWidget(
-                    title: "Status",
-                    value: details.status.toString(),
-                    status: false,
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+      body: status == true
+          ? FutureBuilder(
+              future: getTripPostDetails(),
+              builder: (context, AsyncSnapshot snapshot) {
+                var details = tripPostDetailsModel!.data!;
+                //  var details = snapshot.data.data;
+                if (details == 0) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                return Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                  child: ListView(
                     children: [
-                      CustomButtonOne(
-                          title: "Decline",
-                          btnColor: Colors.amber,
-                          marginLR: 10,
-                          width: 100.w,
-                          height: 45.h,
-                          onTab: () {}),
-                      CustomButtonOne(
-                          title: "Agree",
-                          marginLR: 10,
-                          width: 100.w,
-                          height: 45.h,
-                          fontSize: 15.sp,
-                          btnColor: Colors.green,
-                          onTab: () {})
+                      TripDetailsWidget(
+                        title: "Title",
+                        value: details.title,
+                        status: false,
+                      ),
+                      TripDetailsWidget(
+                        title: "Posted By",
+                        value: details.user,
+                        status: false,
+                      ),
+                      TripDetailsWidget(
+                        title: "Post Type",
+                        value: details.postType,
+                        status: false,
+                      ),
+                      TripDetailsWidget(
+                          title: "Start Point",
+                          value: details.startPoint,
+                          status: false),
+                      TripDetailsWidget(
+                        title: "Destination",
+                        value: details.destination,
+                        status: false,
+                      ),
+                      TripDetailsWidget(
+                        title: "Passenger",
+                        value: details.bids![0].passenger.toString(),
+                        status: false,
+                      ),
+                      TripDetailsWidget(
+                        title: "Preferred Passenger",
+                        value: " ${details.preferredPassenger} ",
+                        status: false,
+                      ),
+                      TripDetailsWidget(
+                        title: "Vehicle Type",
+                        value:
+                            " ${details.pay} ${details.currency.toString()} ",
+                        status: false,
+                      ),
+                      TripDetailsWidget(
+                        title: "Duration",
+                        value: " ${details.duration} ",
+                        status: false,
+                      ),
+                      TripDetailsWidget(
+                        title: "Distance",
+                        value: " ${details.distance}  ",
+                        status: false,
+                      ),
+                      TripDetailsWidget(
+                        title: "Pay",
+                        value:
+                            " ${details.pay} ${details.currency.toString()} ",
+                        status: false,
+                      ),
+                      TripDetailsWidget(
+                        title: "Bid Amount",
+                        value:
+                            "${details.bids![0].amount.toString()} ${details.currency.toString()} ",
+                        status: false,
+                      ),
+                      TripDetailsWidget(
+                        title: "Negotiate Amount",
+                        value:
+                            "${details.bids![0].co.toString()} ${details.currency.toString()} ",
+                        status: false,
+                      ),
+                      TripDetailsWidget(
+                        title: "Agree",
+                        value: details.bids![0].agree.toString(),
+                        status: true,
+                      ),
+                      TripDetailsWidget(
+                        title: "Number Of Bid",
+                        value: details.bidsCount.toString(),
+                        status: false,
+                      ),
+                      TripDetailsWidget(
+                        title: "Status",
+                        value: details.status.toString(),
+                        status: false,
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CustomButtonOne(
+                              title: "Decline",
+                              btnColor: Colors.amber,
+                              marginLR: 10,
+                              width: 100.w,
+                              height: 45.h,
+                              onTab: () {}),
+                          CustomButtonOne(
+                              title: "Agree",
+                              marginLR: 10,
+                              width: 100.w,
+                              height: 45.h,
+                              fontSize: 15.sp,
+                              btnColor: Colors.green,
+                              onTab: () {
+                                controller.tripAgree(details.bids![0].id.toString());
+                              })
+                        ],
+                      )
                     ],
-                  )
-                ],
-              ),
-            );
-          }),
+                  ),
+                );
+              })
+          : Center(
+              child: CircularProgressIndicator(),
+            ),
     );
   }
 }
