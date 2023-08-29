@@ -154,7 +154,7 @@ class MyTripsOfferPage extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.end,
                                         children: [
-                                          tripOfferData.accepted == 0
+                                          tripOfferData.accepted == '0'
                                               ? Container(
                                                   child: Text("Accepted",
                                                       style: TextStyle(
@@ -171,6 +171,8 @@ class MyTripsOfferPage extends StatelessWidget {
                                                       color: Colors.green),
                                                   child: GestureDetector(
                                                     onTap: () {
+                                                      print(
+                                                          "path ${tripOfferData.path}");
                                                       Navigator.push(
                                                           context,
                                                           MaterialPageRoute(

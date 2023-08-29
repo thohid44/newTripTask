@@ -142,7 +142,7 @@ class _GiveARideState extends State<GiveARide> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return Column(
       children: [
         SizedBox(
           height: 10.h,

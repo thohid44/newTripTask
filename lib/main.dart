@@ -10,7 +10,7 @@ void main() {
   // final GoogleMapsFlutterPlatform platform = GoogleMapsFlutterPlatform.instance;
   // // Default to Hybrid Composition for the example.
   // (platform as GoogleMapsFlutterAndroid).useAndroidViewSurface = true;
-  HttpOverrides.global = MyHttpOverrides();
+ // HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }
 

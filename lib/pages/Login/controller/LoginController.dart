@@ -10,19 +10,21 @@ import 'package:http/http.dart' as http;
 
 class LoginController extends GetxController {
   var isLoading = false.obs;
-  var isRegLoading =false.obs;
-  var isLogLoading = false.obs; 
+  var isRegLoading = false.obs;
+  var isLogLoading = false.obs;
   final _box = GetStorage();
   var userClient = http.Client();
-  var url = "http://api.tripshiptask.com/api/auth/login";
+  var url = "${baseUrl}auth/login";
   login(email, password) async {
-    var mapData = {"email": "waleed.amin08@gmail.com", "password": "123456789"};
+   
     try {
+     var mapData = {"email": "waleed.amin08@gmail.com", "password": "123456789"};
       isLogLoading(true);
-      var response = await http.post(Uri.parse("${baseUrl}auth/login"), body: mapData);
+      var response =
+          await http.post(Uri.parse(url), body: mapData);
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(response.body);
-
+  print("Login");
         var getToken = jsonData['access_token'];
         _box.write(LocalStoreKey.token, getToken);
         print(_box.read(LocalStoreKey.token));
@@ -30,6 +32,7 @@ class LoginController extends GetxController {
           Get.to(HomeScreen());
         }
       }
+      
       isLoading(false);
     } catch (e) {
       isLoading(false);

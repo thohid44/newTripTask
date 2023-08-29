@@ -9,7 +9,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -20,10 +19,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
-  var con = Get.put(LoginController()); 
+  var con = Get.put(LoginController());
   @override
   Widget build(BuildContext context) {
-    
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color.fromRGBO(255, 255, 255, 1),
@@ -92,6 +90,8 @@ class _LoginScreenState extends State<LoginScreen> {
             SpaceWidget(
               hight: 30.h,
             ),
+         
+    
             CustomButtonOne(
                 title: "Login",
                 btnColor: navyBlueColor,
@@ -100,7 +100,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 fontSize: 18.sp,
                 fontWeight: FontWeight.bold,
                 onTab: () {
-                 con.login(_email.text.toString(), _password.text.toString());
+                  print("press login");
+                  con.login(_email.text.toString(), _password.text.toString());
                 }),
             SpaceWidget(
               hight: 20.h,
