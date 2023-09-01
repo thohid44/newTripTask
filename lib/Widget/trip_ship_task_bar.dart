@@ -20,39 +20,39 @@ class TripShipTaskBar extends StatelessWidget {
       children: [
         Container(
           alignment: Alignment.center,
-          height: 30.h,
-          width: 110.w,
+          height: 25.h,
+          width: 90.w,
           decoration: BoxDecoration(
               color: tealColor, borderRadius: BorderRadius.circular(5.r)),
           child: InkWell(
               onTap: () {
                 Get.to(TripPage());
               },
-              child: CustomText("Trip", Colors.white, FontWeight.w600, 17.sp)),
+              child: CustomText("Trip", Colors.white, FontWeight.w600, 15.sp)),
         ),
         Container(
           alignment: Alignment.center,
-          height: 30.h,
-          width: 110.w,
+           height: 25.h,
+         width: 90.w,
           decoration: BoxDecoration(
               color: tealColor, borderRadius: BorderRadius.circular(5.r)),
           child: InkWell(
               onTap: () {
                 Get.to(ShipHomePage());
               },
-              child: CustomText("Ship", Colors.white, FontWeight.w600, 17.sp)),
+              child: CustomText("Ship", Colors.white, FontWeight.w600, 15.sp)),
         ),
         Container(
           alignment: Alignment.center,
-          height: 30.h,
-          width: 110.w,
+         height: 25.h,
+          width: 90.w,
           decoration: BoxDecoration(
               color: tealColor, borderRadius: BorderRadius.circular(5.r)),
           child: InkWell(
               onTap: () {
                 Get.to(TaskHomePage());
               },
-              child: CustomText("Task", Colors.white, FontWeight.w600, 17.sp)),
+              child: CustomText("Task", Colors.white, FontWeight.w600, 15.sp)),
         )
       ],
     );

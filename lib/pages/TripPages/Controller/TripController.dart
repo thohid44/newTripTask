@@ -20,7 +20,7 @@ class TripController extends GetxController {
   List<TripSearchM> tripSearchList = <TripSearchM>[].obs;
   TripPostDetailsModel? tripPostDetailsModel;
 
-  getTripRide(sPoint, des, note, prefered, howmany, currency, vehicled) async {
+  getTripRide({sPointLat, sPointLng, dPointLat, dPointLng, des, note, prefered, howmany, currency, vehicled}) async {
     var token = _box.read(LocalStoreKey.token);
     print(token);
     var mapData = {
@@ -35,10 +35,10 @@ class TripController extends GetxController {
       "vehicle": vehicled,
       "vehicle_type": howmany,
       "pay": currency,
-      "s_lat": "eaque",
-      "s_lng": "assumenda",
-      "d_lat": "doloribus",
-      "d_lng": "et",
+      "s_lat": sPointLat,
+      "s_lng": sPointLng,
+      "d_lat": dPointLat,
+      "d_lng": dPointLng,
       "country": "dignissimos",
       "currency": currency,
       "preferred_passenger": "ullam",

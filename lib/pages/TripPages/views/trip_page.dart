@@ -32,7 +32,7 @@ class _TripPageState extends State<TripPage> {
       body: ListView(
         children: [
           Container(
-            height: 80.h,
+            height: 55.h,
             alignment: Alignment.center,
             width: double.infinity,
             decoration: BoxDecoration(
@@ -49,11 +49,11 @@ class _TripPageState extends State<TripPage> {
                 children: [
                   Container(
                       alignment: Alignment.center,
-                      height: 50.h,
+                      height: 35.h,
                       width: 70.w,
                       child: Icon(
                         Icons.person,
-                        size: 60.h,
+                        size: 35.h,
                         color: white,
                       )),
                   Column(
@@ -67,17 +67,17 @@ class _TripPageState extends State<TripPage> {
                       Container(
                         width: 110.w,
                         child: CustomText(
-                            "Acct: 123456", white, FontWeight.w500, 13.sp),
+                            "Acct : Verified", white, FontWeight.w500, 13.sp),
                       )
                     ],
                   ),
                   Container(
-                      width: 160.w,
+                      width: 150.w,
                       padding:
-                          EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                          EdgeInsets.symmetric(horizontal: 2.w, vertical: 5.h),
                       alignment: Alignment.center,
                       margin: EdgeInsets.only(right: 15.w),
-                      height: 40.h,
+                      height: 30.h,
                       decoration: BoxDecoration(
                           color: lightNavyColor,
                           borderRadius: BorderRadius.circular(30.r)),
@@ -106,7 +106,7 @@ class _TripPageState extends State<TripPage> {
           ),
           TripShipTaskBar(),
           SizedBox(
-            height: 10.h,
+            height: 5.h,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -167,7 +167,7 @@ class _TripPageState extends State<TripPage> {
             ],
           ),
           SizedBox(
-            height: 10.h,
+            height: 5.h,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -175,7 +175,7 @@ class _TripPageState extends State<TripPage> {
               CustomTextForm(
                 hinttext: "Search",
                 width: 150.w,
-                height: 40.h,
+                height: 30.h,
                 textController: search,
               ),
               InkWell(
@@ -185,9 +185,10 @@ class _TripPageState extends State<TripPage> {
                   });
                 },
                 child: Container(
-                  height: 40.h,
+                  height: 30.h,
                   padding:
                       EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                      margin: EdgeInsets.only(right: 15.w),
                   decoration: BoxDecoration(
                       color: Color(0xffDEDFE0),
                       borderRadius: BorderRadius.circular(10.r)),

@@ -2,12 +2,12 @@ import 'dart:math';
 
 import 'package:bus/Utils/colors.dart';
 import 'package:bus/Widget/customButtonOne.dart';
-import 'package:bus/Widget/custom_text_field.dart';
+
 import 'package:bus/pages/Login/controller/LoginController.dart';
 import 'package:bus/pages/Login/view/login_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -24,6 +24,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final TextEditingController phone = TextEditingController();
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
+    final TextEditingController retypePassword = TextEditingController();
 
   List<DropdownMenuItem<String>> get dropdownItem {
     List<DropdownMenuItem<String>> genderList = [
@@ -117,7 +118,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               height: 10.h,
             ),
             _textInputForm(
-              controller: name,
+              controller: password,
               hint: "Password",
               userErrorText: "Password is Required",
             ),
@@ -125,7 +126,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               height: 10.h,
             ),
             _textInputForm(
-              controller: name,
+              controller: retypePassword,
               hint: "Retype Password",
               userErrorText: "Retype Password is Required",
             ),

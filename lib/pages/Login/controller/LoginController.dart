@@ -18,7 +18,7 @@ class LoginController extends GetxController {
   login(email, password) async {
    
     try {
-     var mapData = {"email": email.toString(), "password": password.toString()};
+     var mapData = {"email": "waleed.amin08@gmail.com", "password": '123456789'};
       isLogLoading(true);
       var response =
           await http.post(Uri.parse(url), body: mapData);

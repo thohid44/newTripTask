@@ -75,6 +75,7 @@ class _GiveARideState extends State<GiveARide> {
     try {
       var startLats = startPosition!.geometry!.location!.lat;
       var startLong = startPosition!.geometry!.location!.lng;
+    
       var endLat = endPosition!.geometry!.location!.lat;
       var endLong = endPosition!.geometry!.location!.lng;
       var response = await http.get(
