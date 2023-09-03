@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:bus/Api_services/ApiService.dart';
 import 'package:bus/Api_services/base_url.dart';
 import 'package:bus/Utils/colors.dart';
@@ -8,11 +7,10 @@ import 'package:bus/pages/TripPages/model/my_trip_posts_model.dart';
 import 'package:bus/pages/TripPages/model/my_trips_offer_model.dart';
 import 'package:bus/pages/TripPages/model/trip_post_details_model.dart';
 import 'package:bus/pages/TripPages/model/trips_search_model.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
 import 'package:http/http.dart' as http;
+
 
 class TripController extends GetxController {
   final _box = GetStorage();
@@ -20,18 +18,21 @@ class TripController extends GetxController {
   List<TripSearchM> tripSearchList = <TripSearchM>[].obs;
   TripPostDetailsModel? tripPostDetailsModel;
 
-  getTripRide({sPointLat, sPointLng, dPointLat, dPointLng, des, note, prefered, howmany, currency, vehicled}) async {
+  getTripRide({date, time,country, distance,duration, sPointLat, sPointLng, dPointLat, dPointLng, des, note, prefered, howmany, currency, vehicled}) async {
     var token = _box.read(LocalStoreKey.token);
+
     print(token);
+
     var mapData = {
+  
       "post_type": "sit",
-      "start_point": sPoint,
+      "start_point": sPointLat,
       "via": "est",
-      "date": "2023-05-24",
-      "time": "10:00",
-      "destination": "porro",
-      "distance": "nulla",
-      "duration": "esse",
+      "date": date,
+      "time": time,
+      "destination":des, 
+      "distance": distance,
+      "duration": duration,
       "vehicle": vehicled,
       "vehicle_type": howmany,
       "pay": currency,
@@ -39,7 +40,7 @@ class TripController extends GetxController {
       "s_lng": sPointLng,
       "d_lat": dPointLat,
       "d_lng": dPointLng,
-      "country": "dignissimos",
+      "country": country,
       "currency": currency,
       "preferred_passenger": "ullam",
       "vehicle_seat": howmany,

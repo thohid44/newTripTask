@@ -6,7 +6,6 @@ import 'package:bus/pages/Ship/views/shipPage.dart';
 import 'package:bus/pages/TripPages/Controller/TripController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_place/google_place.dart';
 import 'package:geocoding/geocoding.dart';
@@ -83,27 +82,39 @@ class _GetARideState extends State<GetARide> {
   var currency;
 
   final _startSearchFieldController = TextEditingController();
+
   final _endSearchFieldController = TextEditingController();
 
   DetailsResult? startPosition;
+
   DetailsResult? endPosition;
 
   late FocusNode startFocusNode;
   late FocusNode endFocusNode;
 
   late GooglePlace googlePlace;
+
   List<AutocompletePrediction> predictions = [];
+
   Timer? _debounce;
-  Future<void> GetAddressFromLatLong() async {
-    List<Placemark> placemark =
-        await placemarkFromCoordinates(22.379106, 91.917252);
-    print(placemark);
+  List<Placemark>? placemark;
+  Future<void> GetAddressFromLatLong(lat, lng) async {
+
+   placemark = await placemarkFromCoordinates(lat, lng);   
+
+       print(placemark![0].country);
+       print(placemark![0].name);
+       print(placemark![0].locality);
+
+   print(placemark![0].subAdministrativeArea);
+
+
   }
 
   @override
   void initState() {
     // TODO: implement initState
-    GetAddressFromLatLong();
+
     super.initState();
     String apiKey = 'AIzaSyDLMJOClhhQjkfepu0R8iOCIt7bUpUF0nU';
     googlePlace = GooglePlace(apiKey);
@@ -489,6 +500,7 @@ class _GetARideState extends State<GetARide> {
         CustomButtonOne(
           title: "Sumbit",
           onTab: () {
+
             // print(startPoint.text.toString());
             //     print(description.text.toString());
             //         print(vehicled);
@@ -501,22 +513,24 @@ class _GetARideState extends State<GetARide> {
             print("Destination Lat $startPointLong");
             destinationPointLong = startPosition!.geometry!.location!.lng;
             print("Destination Long $startPointLong");
+            print("address is ${GetAddressFromLatLong(startPointLat, startPointLong)}");
 
-         
             controller.getTripRide(
-              sPointLat: startPointLat, 
-              sPointLng: startPointLong, 
-              dPointLat: destinationPointLat,
-              dPointLng: destinationPointLong,
-              howmany: howmay, 
-              note: note.text.toString(), 
-              vehicled: vehicled, 
-              prefered: prefered, 
-              currency: currency
 
+                sPointLat: startPointLat,
+                sPointLng: startPointLong,
+                dPointLat: destinationPointLat,
+                dPointLng: destinationPointLong,
+                howmany: howmay,
+                note: note.text.toString(),
+                vehicled: vehicled,
+                prefered: prefered,
+                currency: currency,
+                country: placemark![0].country, 
+                distance: placemark![0].street, 
 
-
-            );
+                
+                );
           },
           height: 40.h,
           width: 150.w,
