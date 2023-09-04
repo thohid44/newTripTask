@@ -228,7 +228,7 @@ class _GetARideState extends State<GetARide> {
               Container(
                   alignment: Alignment.center,
                   width: 120.w,
-                  height: 35.h,
+                  height: 35.h, 
                   child: CustomForm(
                     hinttext: "Select Time",
                     radius: 5.r,
@@ -524,7 +524,7 @@ class _GetARideState extends State<GetARide> {
                 howmany: howmay,
                 note: note.text.toString(),
                 vehicled: vehicled,
-                prefered: prefered,
+                passengerType: prefered,
                 currency: currency,
                 country: placemark![0].country, 
                 distance: placemark![0].street, 

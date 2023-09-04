@@ -18,15 +18,15 @@ class TripController extends GetxController {
   List<TripSearchM> tripSearchList = <TripSearchM>[].obs;
   TripPostDetailsModel? tripPostDetailsModel;
 
-  getTripRide({date, time,country, distance,duration, sPointLat, sPointLng, dPointLat, dPointLng, des, note, prefered, howmany, currency, vehicled}) async {
+  getTripRide({ startPoint,des, distance, date, time,country,duration, sPointLat, sPointLng, dPointLat, dPointLng,  note, passengerType, howmany, currency, vehicled}) async {
     var token = _box.read(LocalStoreKey.token);
 
-    print(token);
+    print("country is $startPoint");
 
     var mapData = {
   
       "post_type": "sit",
-      "start_point": sPointLat,
+      "start_point": sPointLat.toString(),
       "via": "est",
       "date": date,
       "time": time,
@@ -36,13 +36,13 @@ class TripController extends GetxController {
       "vehicle": vehicled,
       "vehicle_type": howmany,
       "pay": currency,
-      "s_lat": sPointLat,
-      "s_lng": sPointLng,
-      "d_lat": dPointLat,
-      "d_lng": dPointLng,
+      "s_lat": sPointLat.toString(),
+      "s_lng": sPointLng.toString(),
+      "d_lat": dPointLat.toString(),
+      "d_lng": dPointLng.toString(),
       "country": country,
       "currency": currency,
-      "preferred_passenger": "ullam",
+      "preferred_passenger": passengerType, // Male or female or any
       "vehicle_seat": howmany,
       "details": note
     };
