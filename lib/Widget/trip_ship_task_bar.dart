@@ -3,11 +3,8 @@ import 'package:bus/Widget/customText.dart';
 import 'package:bus/pages/Task/views/task_home_page.dart';
 import 'package:bus/pages/TripPages/views/trip_page.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
-
 import '../pages/Ship/views/shipPage.dart';
 
 class TripShipTaskBar extends StatelessWidget {
