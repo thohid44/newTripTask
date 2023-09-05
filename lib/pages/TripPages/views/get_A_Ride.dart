@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bus/Utils/colors.dart';
 import 'package:bus/Widget/customButtonOne.dart';
+import 'package:bus/controller/vehicle_controller.dart';
 import 'package:bus/pages/Ship/views/shipPage.dart';
 import 'package:bus/pages/TripPages/Controller/TripController.dart';
 import 'package:date_format/date_format.dart';
@@ -117,6 +118,9 @@ class _GetARideState extends State<GetARide> {
 
   @override
   Widget build(BuildContext context) {
+    var vehicleController  = Get.put(VehicleController());
+    vehicleController.getMyVehicles();
+   print( vehicleController.myVehicles.first.type);
     var controller = Get.put(TripController());
     return SingleChildScrollView(
       child: Column(
@@ -324,8 +328,8 @@ class _GetARideState extends State<GetARide> {
                   decoration: BoxDecoration(
                       border: Border.all(width: 1.w, color: Colors.grey),
                       borderRadius: BorderRadius.circular(10.r)),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton2<String>(
+                  child: Obx(() => vehicleController.isLoading ==true?DropdownButtonHideUnderline(
+                    child: DropdownButton2<dynamic>(
                       isExpanded: true,
                       hint: Text(
                         'Select Vehicle',
@@ -334,11 +338,11 @@ class _GetARideState extends State<GetARide> {
                           color: Theme.of(context).hintColor,
                         ),
                       ),
-                      items: vehicleitems
-                          .map((String item) => DropdownMenuItem<String>(
-                                value: item,
+                      items: vehicleController.myVehicles
+                          .map(( item) => DropdownMenuItem<String>(
+                                value: item.type,
                                 child: Text(
-                                  item,
+                                 "${ item.type}",
                                   style: TextStyle(
                                     fontSize: 13.sp,
                                   ),
@@ -346,7 +350,7 @@ class _GetARideState extends State<GetARide> {
                               ))
                           .toList(),
                       value: selectVehicle,
-                      onChanged: (String? value) {
+                      onChanged: ( value) {
                         setState(() {
                           selectVehicle = value;
                           print(selectVehicle);
@@ -361,7 +365,8 @@ class _GetARideState extends State<GetARide> {
                         height: 40,
                       ),
                     ),
-                  ),
+                  ):CircularProgressIndicator()
+                  )
                 ),
                 SizedBox(
                   width: 2.w,
