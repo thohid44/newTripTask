@@ -21,7 +21,18 @@ class TripController extends GetxController {
   getTripRide({ startPoint,des, distance, date, time,country,duration, sPointLat, sPointLng, dPointLat, dPointLng,  note, passengerType, howmany, currency, vehicled}) async {
     var token = _box.read(LocalStoreKey.token);
 
-    print("country is $startPoint");
+    print("country is $country");
+    print("time is $time");
+    print("distance is $distance");
+    print("date is $date");
+      print("des is $des");
+    print("duration is $duration");
+    print("distance is $distance");
+    print("sPointLng is $sPointLng");
+      print("sPointLat is $sPointLat");
+    print("dPointLat is $dPointLat");
+    print("dPointLng is $dPointLng");
+    print("note is $note");
 
     var mapData = {
   
@@ -35,13 +46,13 @@ class TripController extends GetxController {
       "duration": duration,
       "vehicle": vehicled,
       "vehicle_type": howmany,
-      "pay": currency,
+      "pay": '100',
       "s_lat": sPointLat.toString(),
       "s_lng": sPointLng.toString(),
       "d_lat": dPointLat.toString(),
       "d_lng": dPointLng.toString(),
       "country": country,
-      "currency": currency,
+      "currency": "BDT",
       "preferred_passenger": passengerType, // Male or female or any
       "vehicle_seat": howmany,
       "details": note
@@ -50,13 +61,13 @@ class TripController extends GetxController {
     try {
       isLoading(true);
       var response = await ApiService().postData(mapData, "trip");
-
+  print(response.statusCode);
       if (response.statusCode == 201) {
         print(response.statusCode);
         var jsonData = jsonDecode(response.body);
         print(jsonData);
         Get.snackbar("Give Ride", "Successfully Store",
-            backgroundColor: navyBlueColor);
+          );
       }
     } catch (e) {
       print("Error $e");
