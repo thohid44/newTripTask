@@ -210,9 +210,10 @@ class CustomForm extends StatelessWidget {
   CustomForm({super.key, this.hinttext, this.radius, this.textController});
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: TextFormField(
+    return  TextFormField(
         controller: textController,
+        textAlignVertical: TextAlignVertical.center,
+        textAlign: TextAlign.center,
         style: TextStyle(color: Colors.black),
         decoration: InputDecoration(
           hintText: hinttext ?? "Enter Data",
@@ -221,7 +222,7 @@ class CustomForm extends StatelessWidget {
               borderRadius: BorderRadius.circular(radius ?? 0.0.r)),
           
         ),
-      ),
+   
     );
   }
 }

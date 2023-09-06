@@ -120,7 +120,7 @@ class _GetARideState extends State<GetARide> {
   Widget build(BuildContext context) {
     var vehicleController  = Get.put(VehicleController());
     vehicleController.getMyVehicles();
-   print( vehicleController.myVehicles.first.type);
+  //  print( vehicleController.myVehicles.first.type);
     var controller = Get.put(TripController());
     return SingleChildScrollView(
       child: Column(
@@ -308,6 +308,9 @@ class _GetARideState extends State<GetARide> {
                   },
                 );
               }),
+                SizedBox(
+            height: 5.h,
+          ),
           Container(
             color: Colors.grey,
             height: 120,
@@ -328,7 +331,7 @@ class _GetARideState extends State<GetARide> {
                   decoration: BoxDecoration(
                       border: Border.all(width: 1.w, color: Colors.grey),
                       borderRadius: BorderRadius.circular(10.r)),
-                  child: Obx(() => vehicleController.isLoading ==true?DropdownButtonHideUnderline(
+                  child: Obx(() => vehicleController.isLoading ==false?DropdownButtonHideUnderline(
                     child: DropdownButton2<dynamic>(
                       isExpanded: true,
                       hint: Text(
@@ -365,7 +368,7 @@ class _GetARideState extends State<GetARide> {
                         height: 40,
                       ),
                     ),
-                  ):CircularProgressIndicator()
+                  ):Text("Loading..", style: TextStyle(fontSize: 14.sp, color: Colors.black),)
                   )
                 ),
                 SizedBox(
@@ -479,18 +482,29 @@ class _GetARideState extends State<GetARide> {
                 SizedBox(
                   width: 2.w,
                 ),
-                Card(
-                  child: Container(
+             
+              Container(
                    
                       height: 35.h,
                       width: 90.w,
-                      alignment: Alignment.center,
-                      child: CustomForm(
-                        hinttext: "Will Pay",
-                        radius: 5.r,
-                        textController: willPayAmount,
-                      )),
-                ),
+                  
+                      child:TextField(
+              controller: willPayAmount,
+              autofocus: false,
+            
+              style: TextStyle(fontSize: 15.sp),
+              decoration: InputDecoration(
+                  hintText: 'Will you pay',
+                  hintStyle:
+                      TextStyle(fontWeight: FontWeight.w500, fontSize: 13.sp),
+              
+                 
+                  border: OutlineInputBorder(),
+                 
+                    ),
+            
+            ),),
+                
                 Card(
                   child: Container(
                     alignment: Alignment.center,

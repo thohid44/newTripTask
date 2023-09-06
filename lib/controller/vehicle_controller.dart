@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:bus/Api_services/base_url.dart';
@@ -11,14 +10,13 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
-class VehicleController extends GetxController{
-var isLoading = false.obs; 
-final _box = GetStorage(); 
+class VehicleController extends GetxController {
+  var isLoading = false.obs;
+  final _box = GetStorage();
 
+  List<VehiclesModel> myVehicles = <VehiclesModel>[].obs;
 
-List<VehiclesModel> myVehicles = <VehiclesModel>[].obs;
-
-   getMyVehicles() async {
+  getMyVehicles() async {
     var token = _box.read(LocalStoreKey.token);
 
     try {
@@ -33,18 +31,16 @@ List<VehiclesModel> myVehicles = <VehiclesModel>[].obs;
       );
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(response.body);
- 
-    VehicleModel data = VehicleModel.fromJson(jsonData); 
-       
+
+        VehicleModel data = VehicleModel.fromJson(jsonData);
+
         myVehicles = data.data!;
-      update();
-        
+
+        isLoading(false); 
       }
     } catch (e) {
+        isLoading(false); 
       print("Error $e");
     }
-  
   }
-
-
 }

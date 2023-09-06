@@ -707,10 +707,10 @@
       "name": "bus",
       "rootUri": "../",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-09-05T16:12:40.321377Z",
+  "generated": "2023-09-05T16:24:27.039474Z",
   "generator": "pub",
   "generatorVersion": "3.1.0"
 }
