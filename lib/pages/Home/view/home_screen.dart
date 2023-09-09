@@ -113,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Container(
                         alignment: Alignment.center,
-                        height: 40.h,
+                  height: 30.h,
                         width: 90.w,
                         decoration: BoxDecoration(
                             color: tealColor,
@@ -127,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       Container(
                         alignment: Alignment.center,
-                        height: 40.h,
+                           height: 30.h,
                         width: 90.w,
                         decoration: BoxDecoration(
                             color: tealColor,
@@ -141,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       Container(
                         alignment: Alignment.center,
-                        height: 40.h,
+                     height: 30.h,
                         width: 90.w,
                         decoration: BoxDecoration(
                             color: tealColor,
@@ -156,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 10.h,
                   ),
                   Container(
-                    height: 150.h,
+                    height: 100.h,
                     child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: 3,
@@ -164,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           return Container(
                             margin: EdgeInsets.symmetric(horizontal: 10.w),
                             padding: EdgeInsets.only(top: 15.h, bottom: 10.h),
-                            height: 140.h,
+                            height: 80.h,
                             width: 250.w,
                             decoration: BoxDecoration(
                               color: primaryColor,
@@ -174,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: [
                                 Container(
                                   width: 60.w,
-                                  height: 100.h,
+                                  height: 60.h,
                                   child: Image.asset(
                                     "assets/man.png",
                                     fit: BoxFit.fitHeight,
@@ -194,14 +194,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                           13.sp),
                                     ),
                                     SizedBox(
-                                      height: 10.h,
+                                      height: 5.h,
                                     ),
                                     Container(
                                       child: CustomText("Always check & carry",
                                           Colors.black, FontWeight.w300, 13.sp),
                                     ),
                                     SizedBox(
-                                      height: 10.h,
+                                      height: 5.h,
                                     ),
                                     Container(
                                       child: CustomText(
@@ -211,7 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           13.sp),
                                     ),
                                     SizedBox(
-                                      height: 10.h,
+                                      height: 5.h,
                                     ),
                                     Container(
                                       child: CustomText(
@@ -231,7 +231,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 10.h,
                   ),
                   Container(
-                    height: 200.h,
+                    height: 140.h,
+                   
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: 2,
@@ -269,8 +270,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ),
                                       Container(
-                                          width: 100.w,
-                                          height: 50.h,
+                                          width: 80.w,
+                                          height: 45.h,
                                           child: Image.asset(
                                             "assets/trip.png",
                                           )),
@@ -278,7 +279,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 10.h,
+                                  height: 5.h,
                                 ),
                                 Stack(
                                   children: [
@@ -287,13 +288,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(
-                                          width: 190.w,
+                                          width: 200.w,
+                                          height: 60.h,
                                           child: Text(
                                             "Post your destination & choose passengers who are headed the same direction",
                                             style: TextStyle(fontSize: 11.sp),
                                           ),
                                         ),
-                                        Image.asset("assets/mobile.jpg")
+                                        Container(
+                                          height: 50.h,
+                                          child: Image.asset("assets/mobile.jpg"))
                                       ],
                                     ),
                                     Positioned(
@@ -308,7 +312,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         right: 15.w,
                                         bottom: 0.h,
                                         child: Container(
-                                            height: 40.h,
+                                            height: 35.h,
                                             child:
                                                 Image.asset("assets/car.png"))),
                                   ],
@@ -324,11 +328,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 10.h,
                   ),
                   Container(
-                      height: 50.h,
+                    height: 100.h, 
+                    color: Colors.amberAccent,
+                  ),
+
+                     SizedBox(
+                    height: 10.h,
+                  ),
+                  Container(
+                      height: 35.h,
                       margin: EdgeInsets.symmetric(horizontal: 20.w),
                       padding: EdgeInsets.only(
                         left: 30.w,
-                        top: 20.h,
+                        top: 5.h,
                       ),
                       width: double.infinity,
                       decoration: BoxDecoration(
@@ -365,8 +377,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               Container(
                                 alignment: Alignment.center,
-                                height: 60,
-                                width: 60,
+                                height: 45.h,
+                                width: 60.w,
                                 decoration: BoxDecoration(
                                     color: navyBlueColor,
                                     shape: BoxShape.circle),
@@ -376,7 +388,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                               SizedBox(
-                                height: 10.h,
+                                height: 5.h,
                               ),
                               Container(
                                   child: Text(
@@ -398,7 +410,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               Container(
                                 alignment: Alignment.center,
-                                height: 60,
+                                height: 45.h,
                                 width: 60,
                                 decoration: const BoxDecoration(
                                     color: navyBlueColor,
@@ -409,7 +421,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                               SizedBox(
-                                height: 20.h,
+                                height: 5.h,
                               ),
                               Container(
                                   child: Text(
@@ -431,7 +443,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               Container(
                                 alignment: Alignment.center,
-                                height: 60,
+                                height: 45.h,
                                 width: 60,
                                 decoration: BoxDecoration(
                                     color: navyBlueColor,
@@ -442,7 +454,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                               SizedBox(
-                                height: 15.h,
+                                height: 10.h,
                               ),
                               Container(
                                   child: Text(
