@@ -243,7 +243,7 @@ class TripDetailsWidget extends StatelessWidget {
               )
             : Container(
                 width: 200.w,
-                child: CustomText(" ${value == "0" ? "NO" : "Yes"}",
+                child: CustomText(" ${value == "0" ? "No" : "Yes"}",
                     Colors.black, FontWeight.w500, 14.sp),
               ),
       ],

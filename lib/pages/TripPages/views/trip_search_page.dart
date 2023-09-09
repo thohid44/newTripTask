@@ -9,6 +9,7 @@ class TripSearchPage extends GetView<TripController> {
     var tripContrller = Get.put(TripController());
     print("sear lenght ${tripContrller.tripSearchList.length}");
     return Scaffold(
+    
       body: Obx(() =>  ListView.builder(
                 itemCount: tripContrller.tripSearchList.length,
                 itemBuilder: (context, index) {

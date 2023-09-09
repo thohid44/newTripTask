@@ -120,7 +120,7 @@ class _GetARideState extends State<GetARide> {
   Widget build(BuildContext context) {
     var vehicleController  = Get.put(VehicleController());
     vehicleController.getMyVehicles();
-   print( vehicleController.myVehicles.first.type);
+  
     var controller = Get.put(TripController());
     return SingleChildScrollView(
       child: Column(
