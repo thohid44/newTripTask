@@ -1,16 +1,14 @@
 import 'package:bus/Widget/customText.dart';
 import 'package:bus/pages/TripPages/Controller/TripController.dart';
 import 'package:bus/pages/TripPages/views/trip_offer_negotiate_page.dart';
-import 'package:bus/pages/TripPages/views/trip_post_details_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:bus/Utils/colors.dart';
-import 'package:bus/Widget/customButtonOne.dart';
-import 'package:bus/Widget/custom_text_field.dart';
+
 import 'package:bus/pages/Ship/views/shipPage.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:intl/intl.dart';
 
 class MyTripsOfferPage extends StatelessWidget {

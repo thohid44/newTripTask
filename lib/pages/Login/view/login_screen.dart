@@ -55,12 +55,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 Card(
                   elevation: 7,
                   child: Container(
+                    width: 120,
+                    height: 120,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
                       boxShadow: const [
                         BoxShadow(
-                          color: Colors.white,
+                           color: primaryColor,
                           blurStyle: BlurStyle.outer,
                           spreadRadius: 15.0, //extend the shadow
                           // offset: Offset(
@@ -78,6 +80,38 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ],
             ),
+            SizedBox(height: 10,),
+            // Container(
+            //         height: 100.h, 
+            //         width: 100.w,
+            //         decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(30),
+            //             color: primaryColor,
+            //           boxShadow: const [
+            //             BoxShadow(
+            //            color: primaryColor,
+            //               blurStyle: BlurStyle.outer,
+            //               blurRadius: 15,
+            //               spreadRadius: 1.0, //extend the shadow
+            //               offset: Offset(
+            //                 4.0, // Move to right 5  horizontally
+            //                 4.0, // Move to bottom 5 Vertically
+            //               ),
+            //             ), 
+            //                 BoxShadow(
+            //            color: primaryColor,
+            //               blurStyle: BlurStyle.outer,
+            //               blurRadius: 15,
+            //               spreadRadius: 3.0, //extend the shadow
+            //               offset: Offset(
+            //               -  4.0, // Move to right 5  horizontally
+            //                - 4.0, // Move to bottom 5 Vertically
+            //               ),
+            //             )
+            //           ],
+            //         ),
+                    
+            //       ),
             SpaceWidget(
               hight: 30.h,
             ),

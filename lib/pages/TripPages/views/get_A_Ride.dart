@@ -13,6 +13,10 @@ import 'package:get/get.dart';
 import 'package:google_place/google_place.dart';
 import 'package:geocoding/geocoding.dart';
 
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart' as loc;
+
 class GetARide extends StatefulWidget {
   @override
   State<GetARide> createState() => _GetARideState();
@@ -40,6 +44,7 @@ class _GetARideState extends State<GetARide> {
   String? selectVehicle;
   String? selectPassenger;
   String? selectPrefer;
+
 
   var startPointLat;
   var startPointLong;
@@ -313,8 +318,39 @@ class _GetARideState extends State<GetARide> {
           ),
           Container(
             color: Colors.grey,
-            height: 120,
+            height: 220,
             width: 320.w,
+            child:  GoogleMap(
+          mapType: MapType.normal,
+          markers: {
+            Marker(
+                position: LatLng(
+                  222.341900,
+                  91.815536
+                ),
+                
+                markerId: MarkerId('id'),
+                icon: BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueMagenta)),
+
+
+                    
+                    
+          },
+          initialCameraPosition: CameraPosition(
+              target: LatLng(
+            222.341900,
+                  91.815536
+              ),
+              zoom: 14.47),
+
+          onMapCreated: (GoogleMapController controller) async {
+            setState(() {
+              _controller = controller;
+              _added = true;
+            });
+          },
+        ),
           ),
           SizedBox(
             height: 5.h,
@@ -623,4 +659,59 @@ class _GetARideState extends State<GetARide> {
       });
     }
   }
+   final loc.Location location = loc.Location();
+  late GoogleMapController _controller;
+  bool _added = false;
+}
+
+
+
+
+class MyMap extends StatefulWidget {
+  final String user_id;
+  MyMap(this.user_id);
+  @override
+  _MyMapState createState() => _MyMapState();
+}
+
+class _MyMapState extends State<MyMap> {
+  final loc.Location location = loc.Location();
+  late GoogleMapController _controller;
+  bool _added = false;
+  @override
+  Widget build(BuildContext context) {
+    return   GoogleMap(
+          mapType: MapType.normal,
+          markers: {
+            Marker(
+                position: LatLng(
+                  22.99999,
+                  22.99999
+                ),
+                
+                markerId: MarkerId('id'),
+                icon: BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueMagenta)),
+
+
+                    
+                    
+          },
+          initialCameraPosition: CameraPosition(
+              target: LatLng(
+                22.00,
+              22.99,
+              ),
+              zoom: 14.47),
+
+          onMapCreated: (GoogleMapController controller) async {
+            setState(() {
+              _controller = controller;
+              _added = true;
+            });
+          },
+        );
+  }
+
+
 }

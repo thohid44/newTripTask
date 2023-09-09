@@ -6,9 +6,10 @@ import 'package:bus/Utils/colors.dart';
 import 'package:bus/Utils/localstorekey.dart';
 import 'package:bus/Widget/customButtonOne.dart';
 import 'package:bus/Widget/customText.dart';
-import 'package:bus/Widget/custom_text_field.dart';
+
 import 'package:bus/pages/TripPages/Controller/TripController.dart';
 import 'package:bus/pages/TripPages/model/trip_post_details_model.dart';
+import 'package:bus/pages/TripPages/views/trip_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -86,7 +87,7 @@ class _tripPostDetailsPageState extends State<tripPostDetailsPage> {
     // //  print("toh detail ${controller.tripPostDetailsModel!.data!.title}");
     // var details = controller.tripPostDetailsModel!.data!;
     return Scaffold(
-      appBar: AppBar(),
+        appBar: customAppBar(),
       body: status == true?FutureBuilder(
           future: getTripPostDetails(),
           builder: (context, AsyncSnapshot snapshot) {
@@ -96,52 +97,69 @@ class _tripPostDetailsPageState extends State<tripPostDetailsPage> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());
             }
-            return ListView(
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      width: 60.w,
-                      margin: EdgeInsets.all(9),
-                      child: CustomText(
-                          "Title:", Colors.black, FontWeight.bold, 15.sp),
-                    ),
-                    Container(
-                      width: 260.w,
-                      child: CustomText(tripPostDetailsModel!.data!.title,
-                          Colors.black, FontWeight.bold, 15.sp),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Container(
-                      width: 60.w,
-                      margin: EdgeInsets.all(9),
-                      child: CustomText(
-                          "Start Point:", Colors.black, FontWeight.bold, 15.sp),
-                    ),
-                    Container(
-                      width: 260.w,
-                      child: CustomText(" ${details.startPoint}", Colors.black,
-                          FontWeight.bold, 15.sp),
-                    ),
-                  ],
-                ),
+            return Padding(
+              padding:  EdgeInsets.symmetric(horizontal:15.0.w),
+              child: ListView(
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        width: 80.w,
+                        margin: EdgeInsets.all(9.w),
+                        child: CustomText(
+                            "Title:", Colors.black, FontWeight.bold, 14.sp),
+                      ),
+                      Container(
+                        width: 200.w,
+                        child: CustomText(tripPostDetailsModel!.data!.title,
+                            Colors.black, FontWeight.w600, 14.sp),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        width: 80.w,
+                        margin: EdgeInsets.all(9),
+                        child: CustomText(
+                            "Start Point:", Colors.black, FontWeight.bold, 14.sp),
+                      ),
+                      Container(
+                        width: 220.w,
+                        child: CustomText(" ${details.startPoint}", Colors.black,
+                            FontWeight.w600, 14.sp),
+                      ),
+                    ],
+                  ),
+                  TripDetailsWidget(
+                  status: false,
+                      title: "Destination", value: details.destination, ),
+
                 TripDetailsWidget(
-                    title: "Destination", value: details.destination),
-                TripDetailsWidget(
-                    title: "Passenger",
-                    value: details.bids![0].passenger.toString()),
-                TripDetailsWidget(title: "Pay", value: details.pay),
-                TripDetailsWidget(
-                    title: "Bid Amount",
-                    value: details.bids![0].amount.toString()),
-                TripDetailsWidget(
-                    title: "Agree", value: details.bids![0].agree.toString())
-              ],
+                  status: false,
+                      title: "Posted By", value: details.user),
+
+                       details.bids!.isNotEmpty ? TripDetailsWidget(
+              status: false,
+                      title: "Passenger",
+                      value: details.bids![0].passenger.toString()):Container(),
+
+                             details.bids!.isNotEmpty ?     TripDetailsWidget(
+                        status: false,title: "Pay", value: details.pay):Container(),
+                        details.bids!.isNotEmpty ?    TripDetailsWidget(
+                          status: false,
+                      title: "Bid Amount",
+                      value: details.bids![0].amount.toString()):Container(),
+            
+                       details.bids!.isNotEmpty ?   TripDetailsWidget(
+                        status: true,
+                      title: "Agree", value: details.bids![0].agree.toString()):Container(),
+                ],
+              ),
             );
           }):Center(child: CircularProgressIndicator(),),
+
+
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             showDialog(
@@ -238,24 +256,54 @@ class _tripPostDetailsPageState extends State<tripPostDetailsPage> {
   }
 }
 
+// class TripDetailsWidget extends StatelessWidget {
+//   String? title;
+//   String? value;
+//   TripDetailsWidget({super.key, this.value, this.title});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       children: [
+//         Container(
+//           width: 60.w,
+//           margin: EdgeInsets.all(9),
+//           child: CustomText("$title :", Colors.black, FontWeight.bold, 15.sp),
+//         ),
+//      Container(
+//           width: 260.w,
+//           child: CustomText("$value", Colors.black, FontWeight.w500, 15.sp),
+//         ),
+//       ],
+//     );
+//   }
+// }
 class TripDetailsWidget extends StatelessWidget {
   String? title;
   String? value;
-  TripDetailsWidget({super.key, this.value, this.title});
+  late bool status = false;
+  TripDetailsWidget({super.key, this.value, this.title, required this.status});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Container(
-          width: 60.w,
-          margin: EdgeInsets.all(9),
-          child: CustomText("$title :", Colors.black, FontWeight.bold, 15.sp),
+          width: 100.w,
+          margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+          child: CustomText("$title :", Colors.black, FontWeight.bold, 14.sp),
         ),
-        Container(
-          width: 260.w,
-          child: CustomText(" ${value}", Colors.black, FontWeight.w500, 15.sp),
-        ),
+        status == false
+            ? Container(
+                width: 200.w,
+                child: CustomText(
+                    " ${value}", Colors.black, FontWeight.w500, 15.sp),
+              )
+            : Container(
+                width: 200.w,
+                child: CustomText(" ${value == "0" ? "NO" : "Yes"}",
+                    Colors.black, FontWeight.w500, 14.sp),
+              ),
       ],
     );
   }
