@@ -45,7 +45,6 @@ class _GetARideState extends State<GetARide> {
   String? selectPassenger;
   String? selectPrefer;
 
-
   var startPointLat;
   var startPointLong;
   var destinationPointLong;
@@ -55,8 +54,6 @@ class _GetARideState extends State<GetARide> {
   final TextEditingController description = TextEditingController();
 
   final TextEditingController note = TextEditingController();
-
- 
 
   List<DropdownMenuItem<String>> get willingPay {
     List<DropdownMenuItem<String>> destination = [
@@ -123,9 +120,9 @@ class _GetARideState extends State<GetARide> {
 
   @override
   Widget build(BuildContext context) {
-    var vehicleController  = Get.put(VehicleController());
+    var vehicleController = Get.put(VehicleController());
     vehicleController.getMyVehicles();
-  //  print( vehicleController.myVehicles.first.type);
+    //  print( vehicleController.myVehicles.first.type);
     var controller = Get.put(TripController());
     return SingleChildScrollView(
       child: Column(
@@ -313,44 +310,33 @@ class _GetARideState extends State<GetARide> {
                   },
                 );
               }),
-                SizedBox(
+          SizedBox(
             height: 5.h,
           ),
           Container(
             color: Colors.grey,
             height: 220,
             width: 320.w,
-            child:  GoogleMap(
-          mapType: MapType.normal,
-          markers: {
-            Marker(
-                position: LatLng(
-                  222.341900,
-                  91.815536
-                ),
-                
-                markerId: MarkerId('id'),
-                icon: BitmapDescriptor.defaultMarkerWithHue(
-                    BitmapDescriptor.hueMagenta)),
+            child: GoogleMap(
+            
+              mapType: MapType.normal,
+              markers: {
+                Marker(
+                    position: LatLng(222.341900, 91.815536),
+                    markerId: MarkerId('id'),
+                    icon: BitmapDescriptor.defaultMarkerWithHue(
+                        BitmapDescriptor.hueMagenta)),
+              },
+              initialCameraPosition: CameraPosition(
+                  target: LatLng(222.341900, 91.815536), zoom: 14.47),
 
-
-                    
-                    
-          },
-          initialCameraPosition: CameraPosition(
-              target: LatLng(
-            222.341900,
-                  91.815536
-              ),
-              zoom: 14.47),
-
-          onMapCreated: (GoogleMapController controller) async {
-            setState(() {
-              _controller = controller;
-              _added = true;
-            });
-          },
-        ),
+              onMapCreated: (GoogleMapController controller) async {
+                setState(() {
+                  _controller = controller;
+                 
+                });
+              },
+            ),
           ),
           SizedBox(
             height: 5.h,
@@ -361,52 +347,56 @@ class _GetARideState extends State<GetARide> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  alignment: Alignment.center,
-                  height: 35.h,
-                  width: 120.w,
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 1.w, color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10.r)),
-                  child: Obx(() => vehicleController.isLoading ==false?DropdownButtonHideUnderline(
-                    child: DropdownButton2<dynamic>(
-                      isExpanded: true,
-                      hint: Text(
-                        'Select Vehicle',
-                        style: TextStyle(
-                          fontSize: 13.sp,
-                          color: Theme.of(context).hintColor,
-                        ),
-                      ),
-                      items: vehicleController.myVehicles
-                          .map(( item) => DropdownMenuItem<String>(
-                                value: item.type,
-                                child: Text(
-                                 "${ item.type}",
-                                  style: TextStyle(
-                                    fontSize: 13.sp,
-                                  ),
+                    alignment: Alignment.center,
+                    height: 35.h,
+                    width: 120.w,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 1.w, color: Colors.grey),
+                        borderRadius: BorderRadius.circular(10.r)),
+                    child: Obx(() => vehicleController.isLoading == false
+                        ? DropdownButtonHideUnderline(
+                            child: DropdownButton2<dynamic>(
+                              isExpanded: true,
+                              hint: Text(
+                                'Select Vehicle',
+                                style: TextStyle(
+                                  fontSize: 13.sp,
+                                  color: Theme.of(context).hintColor,
                                 ),
-                              ))
-                          .toList(),
-                      value: selectVehicle,
-                      onChanged: ( value) {
-                        setState(() {
-                          selectVehicle = value;
-                          print(selectVehicle);
-                        });
-                      },
-                      buttonStyleData: ButtonStyleData(
-                        padding: EdgeInsets.symmetric(horizontal: 5.w),
-                        height: 40,
-                        width: 120,
-                      ),
-                      menuItemStyleData: const MenuItemStyleData(
-                        height: 40,
-                      ),
-                    ),
-                  ):Text("Loading..", style: TextStyle(fontSize: 14.sp, color: Colors.black),)
-                  )
-                ),
+                              ),
+                              items: vehicleController.myVehicles
+                                  .map((item) => DropdownMenuItem<String>(
+                                        value: item.type,
+                                        child: Text(
+                                          "${item.type}",
+                                          style: TextStyle(
+                                            fontSize: 13.sp,
+                                          ),
+                                        ),
+                                      ))
+                                  .toList(),
+                              value: selectVehicle,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectVehicle = value;
+                                  print(selectVehicle);
+                                });
+                              },
+                              buttonStyleData: ButtonStyleData(
+                                padding: EdgeInsets.symmetric(horizontal: 5.w),
+                                height: 40,
+                                width: 120,
+                              ),
+                              menuItemStyleData: const MenuItemStyleData(
+                                height: 40,
+                              ),
+                            ),
+                          )
+                        : Text(
+                            "Loading..",
+                            style:
+                                TextStyle(fontSize: 14.sp, color: Colors.black),
+                          ))),
                 SizedBox(
                   width: 2.w,
                 ),
@@ -518,29 +508,21 @@ class _GetARideState extends State<GetARide> {
                 SizedBox(
                   width: 2.w,
                 ),
-             
-              Container(
-                   
-                      height: 35.h,
-                      width: 90.w,
-                  
-                      child:TextField(
-              controller: willPayAmount,
-              autofocus: false,
-            
-              style: TextStyle(fontSize: 15.sp),
-              decoration: InputDecoration(
-                  hintText: 'Will you pay',
-                  hintStyle:
-                      TextStyle(fontWeight: FontWeight.w500, fontSize: 13.sp),
-              
-                 
-                  border: OutlineInputBorder(),
-                 
+                Container(
+                  height: 35.h,
+                  width: 90.w,
+                  child: TextField(
+                    controller: willPayAmount,
+                    autofocus: false,
+                    style: TextStyle(fontSize: 15.sp),
+                    decoration: InputDecoration(
+                      hintText: 'Will you pay',
+                      hintStyle: TextStyle(
+                          fontWeight: FontWeight.w500, fontSize: 13.sp),
+                      border: OutlineInputBorder(),
                     ),
-            
-            ),),
-                
+                  ),
+                ),
                 Card(
                   child: Container(
                     alignment: Alignment.center,
@@ -659,13 +641,11 @@ class _GetARideState extends State<GetARide> {
       });
     }
   }
-   final loc.Location location = loc.Location();
+
+  final loc.Location location = loc.Location();
   late GoogleMapController _controller;
   bool _added = false;
 }
-
-
-
 
 class MyMap extends StatefulWidget {
   final String user_id;
@@ -680,38 +660,27 @@ class _MyMapState extends State<MyMap> {
   bool _added = false;
   @override
   Widget build(BuildContext context) {
-    return   GoogleMap(
-          mapType: MapType.normal,
-          markers: {
-            Marker(
-                position: LatLng(
-                  22.99999,
-                  22.99999
-                ),
-                
-                markerId: MarkerId('id'),
-                icon: BitmapDescriptor.defaultMarkerWithHue(
-                    BitmapDescriptor.hueMagenta)),
-
-
-                    
-                    
-          },
-          initialCameraPosition: CameraPosition(
-              target: LatLng(
-                22.00,
-              22.99,
-              ),
-              zoom: 14.47),
-
-          onMapCreated: (GoogleMapController controller) async {
-            setState(() {
-              _controller = controller;
-              _added = true;
-            });
-          },
-        );
+    return GoogleMap(
+      mapType: MapType.normal,
+      markers: {
+        Marker(
+            position: LatLng(22.99999, 22.99999),
+            markerId: MarkerId('id'),
+            icon: BitmapDescriptor.defaultMarkerWithHue(
+                BitmapDescriptor.hueMagenta)),
+      },
+      initialCameraPosition: CameraPosition(
+          target: LatLng(
+            22.00,
+            22.99,
+          ),
+          zoom: 14.47),
+      onMapCreated: (GoogleMapController controller) async {
+        setState(() {
+          _controller = controller;
+          _added = true;
+        });
+      },
+    );
   }
-
-
 }

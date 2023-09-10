@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:bus/pages/TripPages/views/my_trips_offer_page.dart';
 import 'package:bus/profile/view/all_Trips_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../pages/Task/views/task_home_page.dart';
-
 
 class MapTrip extends StatefulWidget {
   const MapTrip();
@@ -17,23 +17,49 @@ class MapTrip extends StatefulWidget {
 }
 
 class _MapTripState extends State<MapTrip> {
+  Completer<GoogleMapController> _controller = Completer();
+  CameraPosition _kGooglPlex =
+      CameraPosition(target: LatLng(23.738045, 73.084488), zoom: 14);
 
-  Completer<GoogleMapController> _controller = Completer(); 
-  CameraPosition _kGooglPlex = CameraPosition(target: LatLng(22/99, 22.00));
-
-  final Set<Marker> _markers = {}; 
+  final Set<Marker> _markers = {};
   final Set<Polyline> _polyLine = {};
-  List<LatLng> latLng ={};
+  List<LatLng> latLng = [
+    LatLng(33.738045, 73.084488),
+    LatLng(33.567997728, 72.635997456)
+  ];
+
+
+  void initState() {
+    for (var i = 0; i < latLng.length; i++) {
+      _markers.add(Marker(markerId: MarkerId(i.toString()),
+      position: latLng[i],
+      infoWindow: InfoWindow(
+        title: "Trip Ship", 
+        snippet: "S tar Rating"
+      ), 
+      icon: BitmapDescriptor.defaultMarker
+      
+      ));
+      setState(() {
+        
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-          appBar: customAppBar(),
-          body:Column(
-            children: [
-              
-            ],
-          )),
-    );
+        child: Scaffold(
+      appBar: customAppBar(),
+      body: GoogleMap(
+        initialCameraPosition: _kGooglPlex,
+        onMapCreated: (GoogleMapController controller) {
+          _controller.complete(controller);
+        },
+        markers: _markers,
+        myLocationEnabled: true,
+        mapType: MapType.normal,
+      ),
+    ));
   }
 }
