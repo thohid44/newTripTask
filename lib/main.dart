@@ -2,11 +2,8 @@ import 'package:bus/map_trip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import 'pages/Login/view/login_screen.dart';
-
 import 'dart:io';
-
 void main() {
   // final GoogleMapsFlutterPlatform platform = GoogleMapsFlutterPlatform.instance;
   // // Default to Hybrid Composition for the example.
@@ -40,7 +37,7 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: MapTrip(),
+      child: LoginScreen(),
     );
   }
 }
